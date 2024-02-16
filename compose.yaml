@@ -1,0 +1,45 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/frontend.Dockerfile
+    tty: true
+    command: "sh -c 'bash /home/frontend/bin/init.sh'"
+    environment:
+      HOST: "0.0.0.0"
+    volumes:
+      - ./frontend:/home/frontend
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend.Dockerfile
+    tty: true
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      TZ: Asia/Tokyo
+    command: "sh -c 'bash /var/www/html/bin/init.sh && apache2-foreground'"
+    ports:
+      - "8000:80"
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: .
+      dockerfile: ./docker/database.Dockerfile
+    volumes:
+      - ./database/mysql.conf:/etc/mysql/mysql.conf
+      - ./database/lib:/var/lib/mysql
+      - ./database/logs:/var/log/database
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: main
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_ROOT_PASSWORD: root
+      TZ: "Asia/Tokyo"
+      LC_ALL: "C.UTF-8"

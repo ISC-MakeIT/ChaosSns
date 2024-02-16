@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-sns
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: chaos-sns
+    spec:
+      containers:
+      - name: backend-node
+        image: backend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - port: 8080
+          protocol: TCP
+          targetPort: 80
+      - name: frontend-node
+        image: frontend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - port: 3000
+          protocol: TCP
+          targetPort: 3000
+      - name: database-node
+        image: database:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - port: 3306
+          protocol: TCP
+          targetPort: 3306
