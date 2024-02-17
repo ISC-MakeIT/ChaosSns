@@ -1,9 +1,12 @@
 <?php
 
 namespace Tests\Feature\Repositories\User;
+
+use App\Repositories\User\Exceptions\FailedCreateUserException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
@@ -54,5 +57,18 @@ class UserRepositoryTest extends TestCase
         );
 
         $this->assertTrue(Hash::check($args['password'], $createdUser->password), '作成確認 (パスワードのみ)');
+
+        $this->assertThrows(
+            function() {
+                $this->userRepo->create(
+                    Str::random(300),
+                    '',
+                    '',
+                    '',
+                    '',
+                );
+            },
+            FailedCreateUserException::class,
+        );
     }
 }

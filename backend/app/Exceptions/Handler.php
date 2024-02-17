@@ -24,7 +24,9 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            if ($e instanceof HttpExceptionInterface) {
+                return response($e->getResponseJson(), $e->getStatusCode());
+            }
         });
     }
 }
