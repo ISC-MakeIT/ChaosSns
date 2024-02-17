@@ -1,6 +1,9 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Header } from "@/components/templates/Header";
 
 export default function Home() {
-  return <div className="text-3xl text-sky-500">Hello World</div>;
+  return (
+    <div>
+      <Header label="ホーム"/>
+    </div>
+  )
 }
