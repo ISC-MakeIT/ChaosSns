@@ -10,18 +10,18 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryDIProvider extends ServiceProvider
 {
-    private $repositories = [
-        UserRepositoryInterface::class => function() {
-            return new UserRepository();
-        },
-        S3RepositoryInterface::class => function() {
-            return new S3Repository();
-        },
-    ];
-
     public function register(): void
     {
-        foreach ($this->repositories as $interface => $repository) {
+        $repositories = [
+            UserRepositoryInterface::class => function() {
+                return new UserRepository();
+            },
+            S3RepositoryInterface::class => function() {
+                return new S3Repository();
+            },
+        ];
+
+        foreach ($repositories as $interface => $repository) {
             $this->app->bind($interface, $repository);
         }
     }

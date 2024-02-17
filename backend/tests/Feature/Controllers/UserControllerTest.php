@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    public function testユーザー作成を行うこと(): void
+    public function testCreate(): void
     {
         $icon    = UploadedFile::fake()->image('dummy.jpg', 800, 800);
         $request = new CreateUserRequest([
