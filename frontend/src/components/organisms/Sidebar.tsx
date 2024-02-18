@@ -1,8 +1,8 @@
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";
 
-import { SidebarLogo } from "../molecules/SidebarLogo";
 import { SidebarItem } from "../molecules/SidebarItem";
 import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
+import { TwitterLogo } from "../atoms/TwitterLogo";
 
 export const Sidebar = () => {
   const items = [
@@ -38,7 +38,9 @@ export const Sidebar = () => {
     <div className="col-span-1 h-full pr-4 md:pr-6">
       <div className="flex flex-col items-end">
         <div className="space-y-2 lg:w-[230px]">
-          <SidebarLogo />
+          <div className="rounded-full h-14 w-14 p-4 flex items-center justify-center hover:bg-blue-300 hover:bg-opacity-10 cursor-pointer transition">
+            <TwitterLogo />
+          </div>
           {SideItems}
           <SidebarTweetButton />
         </div>

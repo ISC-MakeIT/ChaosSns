@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Template } from "@/components/templates/template";
+import { BasicTemplate } from "@/components/templates/BasicTemplate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,5 +15,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Template children={children} />;
+  return <BasicTemplate>{children}</BasicTemplate>;
 }

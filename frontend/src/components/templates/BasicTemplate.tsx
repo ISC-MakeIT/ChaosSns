@@ -5,7 +5,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export const Template: React.FC<LayoutProps> = ({ children }) => {
+export const BasicTemplate: React.FC<LayoutProps> = ({ children }) => {
   return (
     <html>
       <body>
