@@ -1,8 +1,8 @@
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";
 
-import { SidebarLogo } from "../organisms/SidebarLogo";
-import { SidebarItem } from "../organisms/SidebarItem";
-import { SidebarTweetButton } from "../atoms/SidebarTweetButton";
+import { SidebarLogo } from "../molecules/SidebarLogo";
+import { SidebarItem } from "../molecules/SidebarItem";
+import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
 
 export const Sidebar = () => {
   const items = [
@@ -23,19 +23,23 @@ export const Sidebar = () => {
     },
   ];
 
+  const SideItems = items.map((item) => {
+    return (
+      <SidebarItem
+        key={item.href}
+        href={item.href}
+        label={item.label}
+        icon={item.icon}
+      />
+    );
+  });
+
   return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
       <div className="flex flex-col items-end">
         <div className="space-y-2 lg:w-[230px]">
           <SidebarLogo />
-          {items.map((item) => (
-            <SidebarItem
-              key={item.href}
-              href={item.href}
-              label={item.label}
-              icon={item.icon}
-            />
-          ))}
+          {SideItems}
           <SidebarTweetButton />
         </div>
       </div>

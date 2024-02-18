@@ -4,14 +4,12 @@ interface SidebarItemProps {
   label: string;
   href?: string;
   icon: IconType;
-  onClick?: () => void;
 }
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({
   label,
   href,
   icon: Icon,
-  onClick,
 }) => {
   return (
     <div className="flex flex-row items-center">
