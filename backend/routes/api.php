@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/users')->group(function() {
+    Route::get('/self', [UserController::class, 'getLoggedInUser'])->name('users.self');
     Route::post('/', [UserController::class, 'create'])->name('users.registration');
+    Route::post('/login', [UserController::class, 'login'])->name('users.login');
+    Route::post('/logout', [UserController::class, 'logout'])->name('users.logout');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

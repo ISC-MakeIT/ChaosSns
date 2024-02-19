@@ -43,4 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function toArrayForLoggedInUser(): array
+    {
+        return [
+            'id'          => $this->id,
+            'email'       => $this->email,
+            'name'        => $this->name,
+            'description' => $this->name,
+            'icon'        => $this->icon,
+        ];
+    }
 }
