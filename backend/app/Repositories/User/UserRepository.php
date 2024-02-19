@@ -4,7 +4,9 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\User\Exceptions\FailedCreateUserException;
+use App\Repositories\User\Exceptions\FailedFindUserException;
 use App\Repositories\User\Exceptions\FailedLoginException;
+use App\Repositories\User\Exceptions\FailedLogoutException;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
@@ -41,14 +43,31 @@ class UserRepository implements UserRepositoryInterface
         $user = User::find($email);
 
         if (!$user) {
-            throw new FailedLoginException();
+            throw new FailedFindUserException();
         }
 
         if (!Hash::check($password, $user->password)) {
-            throw new FailedLoginException();
+            throw new FailedFindUserException();
         }
 
-        auth()->login($user);
         return $user;
+    }
+
+    public function login(User $user): void
+    {
+        try {
+            auth()->login($user);
+        } catch (Throwable $e) {
+            throw new FailedLoginException();
+        }
+    }
+
+    public function logout(): void
+    {
+        try {
+            auth()->logout();
+        } catch (Throwable $e) {
+            throw new FailedLogoutException();
+        }
     }
 }
