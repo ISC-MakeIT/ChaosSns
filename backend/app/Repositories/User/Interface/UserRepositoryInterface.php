@@ -10,6 +10,8 @@ interface UserRepositoryInterface
 
     public function findOneByAuth(string $email, string $password): User;
 
+    public function getLoggedInUser(): User;
+
     public function login(User $user): void;
 
     public function logout(): void;

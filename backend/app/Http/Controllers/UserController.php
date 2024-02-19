@@ -68,4 +68,17 @@ class UserController extends Controller
 
         return response()->json(['message' => 'logout successful']);
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getLoggedInUser(): JsonResponse
+    {
+        $user = $this->userRepo->getLoggedInUser();
+
+        return response()->json([
+            'message' => 'get user successful',
+            'user'    => $user->toArrayForLoggedInUser()
+        ]);
+    }
 }

@@ -53,6 +53,17 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public function getLoggedInUser(): User
+    {
+        $user = User::find(auth()->id());
+
+        if (!$user) {
+            throw new FailedFindUserException();
+        }
+
+        return $user;
+    }
+
     public function login(User $user): void
     {
         try {
