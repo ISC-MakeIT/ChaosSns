@@ -29,7 +29,8 @@ class UserController extends Controller
     public function create(CreateUserRequest $request): JsonResponse
     {
         return DB::transaction(function() use ($request) {
-            $iconURL = $this->s3Repo->upload($request->validated('icon'));
+
+            $iconURL = $this->s3Repo->upload($request->file('icon'));
 
             $this->userRepo->create(
                 $request->validated('email'),

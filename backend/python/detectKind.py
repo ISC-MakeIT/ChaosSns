@@ -11,9 +11,9 @@ class TweetKind(Enum):
 def cos_sim(v1, v2):
     return np.inner(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
-def is_close(v1, v2) -> bool:
+def is_close(v1, v2, close_value) -> bool:
     sim = cos_sim(v1, v2)
-    return sim >= 0.7
+    return sim >= close_value
 
 input  = sys.argv[1]
 output = TweetKind.LIKE
@@ -120,17 +120,20 @@ texts = {
         "苦しみ"
     ],
     "smell": [
-        "新しい髪型", "❓", "✨", "👀", "💇‍♀️", "バッチリ", "似合ってる", "😆", "🌟", "💕", "👌", "本当に素敵", "😊", "最高", "😘",
-        "髪を短く", "👋", "💈", "いい感じ", "😁", "🌈", "❤️", "👍", "めちゃくちゃかっこいい", "😄", "完璧", "😍",
-        "髪色変えた", "❗", "🎨", "映えてる", "🌸", "💖", "👐", "まさにピッタリ",
-        "変わった", "✂️", "新鮮", "🍃", "💓", "✋", "若々しい", "素敵すぎる",
-        "ヘアスタイル新しく", "🤔", "🔥", "💝", "👊", "かっこいい", "惚れ惚れする",
-        "髪切った後", "清潔感", "🌿", "❣️", "輝いてる",
-        "スタイル一新", "👏", "💇‍♂️", "おしゃれ", "🎉", "💗", "カッコよすぎ",
-        "バッサリ切った", "👵", "ルック", "🌺", "💞", "✊", "チャーミング", "魅力的すぎる",
-        "変えたのかな", "👴", "フレッシュ", "🌟", "♥️", "素晴らしい",
-        "前髪切った", "👧", "かわいい", "🌈", "キュートすぎる"
+        "オッハー",
+        "食べちゃいたいナ〜",
+        "٩(ˊᗜˋ*)و",
+        "だっタ",
+        "心配だヨ",
+        "オイシイ",
+        "元気出さなきゃだネ",
+        "ナンチャッテ",
     ],
+}
+
+texts_close = {
+    "like" : 0.9,
+    "smell": 0.7,
 }
 
 vectorian        = SentencePieceVectorian()
@@ -143,7 +146,7 @@ for key in texts.keys():
         np_text_vectors = np.array(vectorian.fit(text).vectors)
         np_text_vector  = np.mean(np_text_vectors, axis=0).reshape(1, -1)
 
-        if is_close(np_input_vector, np_text_vector):
+        if is_close(np_input_vector, np_text_vector, texts_close[key]):
             output = TweetKind[key.upper()]
 
 print(output.value)
