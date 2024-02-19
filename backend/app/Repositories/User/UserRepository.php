@@ -4,13 +4,17 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\User\Exceptions\FailedCreateUserException;
+use App\Repositories\User\Exceptions\FailedLoginException;
 use App\Repositories\User\Interface\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class UserRepository implements UserRepositoryInterface
 {
     /**
      * @throws FailedCreateUserException
+     *
+     * @return User
      */
     public function create(string $email, string $description, string $password, string $name, string $iconURL): User
     {
@@ -25,5 +29,26 @@ class UserRepository implements UserRepositoryInterface
         } catch (Throwable $e) {
             throw new FailedCreateUserException();
         }
+    }
+
+    /**
+     * @throws FailedLoginException
+     *
+     * @return User
+     */
+    public function findOneByAuth(string $email, string $password): User
+    {
+        $user = User::find($email);
+
+        if (!$user) {
+            throw new FailedLoginException();
+        }
+
+        if (!Hash::check($password, $user->password)) {
+            throw new FailedLoginException();
+        }
+
+        auth()->login($user);
+        return $user;
     }
 }

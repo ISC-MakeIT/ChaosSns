@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\LoginRequest;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +30,6 @@ class UserController extends Controller
     public function create(CreateUserRequest $request): JsonResponse
     {
         return DB::transaction(function() use ($request) {
-
             $iconURL = $this->s3Repo->upload($request->file('icon'));
 
             $this->userRepo->create(
@@ -42,5 +42,20 @@ class UserController extends Controller
 
             return response()->json(['message' => 'create user successful']);
         });
+    }
+
+    /**
+     * @param
+     *
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        $this->userRepo->findOneByAuth(
+            $request->validated('email'),
+            $request->validated('password'),
+        );
+
+        return response()->json(['message' => 'login successful']);
     }
 }
