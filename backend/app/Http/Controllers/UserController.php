@@ -45,7 +45,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param
+     * @param LoginRequest $request
      *
      * @return JsonResponse
      */
@@ -57,5 +57,15 @@ class UserController extends Controller
         );
 
         return response()->json(['message' => 'login successful']);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        $this->userRepo->logout();
+
+        return response()->json(['message' => 'logout successful']);
     }
 }
