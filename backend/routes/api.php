@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\TweetController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/users')->group(function() {
+Route::prefix('/users')->group(function () {
     Route::post('/', [UserController::class, 'create'])->name('users.registration');
     Route::post('/login', [UserController::class, 'login'])->name('users.login');
 });
 
-Route::middleware('auth:sanctum')->group(function() {
-    Route::prefix('/users')->group(function() {
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('/users')->group(function () {
         Route::get('/self', [UserController::class, 'getLoggedInUser'])->name('users.self');
         Route::post('/logout', [UserController::class, 'logout'])->name('users.logout');
     });
+});
+
+Route::prefix('/tweets')->group(function () {
+    Route::get('/', [TweetController::class, 'getTweets']);
 });
