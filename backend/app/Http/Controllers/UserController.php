@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
-use http\Client\Curl\User;
-use http\Env\Response;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
