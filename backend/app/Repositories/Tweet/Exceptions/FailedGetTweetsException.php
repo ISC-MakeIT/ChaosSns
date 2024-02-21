@@ -5,7 +5,7 @@ namespace App\Repositories\Tweet\Exceptions;
 use App\Exceptions\HttpExceptionInterface;
 use RuntimeException;
 
-class FailedGetTweetException extends RuntimeException implements HttpExceptionInterface
+class FailedGetTweetsException extends RuntimeException implements HttpExceptionInterface
 {
     public function getStatusCode(): int
     {

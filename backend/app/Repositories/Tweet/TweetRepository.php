@@ -3,13 +3,13 @@
 namespace App\Repositories\Tweet;
 
 use App\Models\Tweet;
-use App\Repositories\Tweet\Exceptions\FailedGetTweetException;
+use App\Repositories\Tweet\Exceptions\FailedGetTweetsException;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 
 class TweetRepository implements TweetRepositoryInterface
 {
     /**
-     * @throws FailedGetTweetException
+     * @throws FailedGetTweetsException
      *
      * @return Tweet
      */
@@ -18,7 +18,7 @@ class TweetRepository implements TweetRepositoryInterface
         $tweets = Tweet::get();
 
         if (!$tweets) {
-            throw new FailedGetTweetException();
+            throw new FailedGetTweetsException();
         }
 
         return $tweets;
