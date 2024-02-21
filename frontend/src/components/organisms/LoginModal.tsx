@@ -1,9 +1,9 @@
 'use client'
 
-import useLoginModal from "@/hooks/useLoginModal";
 import { useCallback, useState } from "react";
-import Modal from "./atoms/Modal";
-import Input from "./atoms/Input";
+import Modal from "./Modal";
+import Input from "../atoms/Input";
+import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
 const LoginModal = () => {

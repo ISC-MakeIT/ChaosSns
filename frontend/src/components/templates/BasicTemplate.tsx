@@ -1,9 +1,8 @@
 import { useUser } from "@/hooks/user";
-import Modal from "../atoms/Modal";
 import { FollowBar } from "../organisms/Followbar";
 import { Sidebar } from "../organisms/Sidebar";
-import LoginModal from "../LoginModal";
-import RegisterModal from "../RegisterModal";
+import LoginModal from "../organisms/LoginModal";
+import RegisterModal from "../organisms/RegisterModal";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,7 +10,6 @@ interface LayoutProps {
 
 export const BasicTemplate: React.FC<LayoutProps> = async ({ children }) => {
   const user = await useUser();
-  
   return (
     <html>
       <body>
