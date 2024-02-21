@@ -11,7 +11,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            \App\Repositories\Tweet\Interface\TweetRepositoryInterface::class,
+            \App\Repositories\Tweet\TweetRepository::class
+        );
+        $this->app->bind(
+            \App\Repositories\User\Interface\UserRepositoryInterface::class,
+            \App\Repositories\User\UserRepository::class
+        );
     }
 
     /**

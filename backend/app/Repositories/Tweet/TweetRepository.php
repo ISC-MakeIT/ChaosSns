@@ -5,15 +5,16 @@ namespace App\Repositories\Tweet;
 use App\Models\Tweet;
 use App\Repositories\Tweet\Exceptions\FailedGetTweetsException;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class TweetRepository implements TweetRepositoryInterface
 {
     /**
      * @throws FailedGetTweetsException
      *
-     * @return Tweet
+     * @return Collection
      */
-    public function getTweets()
+    public function getTweets(): Collection
     {
         $tweets = Tweet::get();
 

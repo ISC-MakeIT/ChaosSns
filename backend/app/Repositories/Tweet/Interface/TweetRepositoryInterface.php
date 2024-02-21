@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Tweet\Interface;
 
-use App\Models\Tweet;
 use Illuminate\Support\Collection;
 
 interface TweetRepositoryInterface
@@ -13,5 +12,5 @@ interface TweetRepositoryInterface
      * @return Collection
      */
 
-    public function getTweets();
+    public function getTweets(): Collection;
 }
