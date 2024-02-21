@@ -14,10 +14,10 @@ class TweetController extends Controller
         $this->tweetRepo = $tweetRepo;
     }
 
-    public function getTweet()
+    public function getTweets()
     {
-        $tweet = $this->tweetRepo->getTweet();
+        $tweets = $this->tweetRepo->getTweets();
 
-        return $tweet;
+        return $tweets;
     }
 }

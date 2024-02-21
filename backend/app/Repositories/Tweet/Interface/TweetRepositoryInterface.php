@@ -13,5 +13,5 @@ interface TweetRepositoryInterface
      * @return Collection
      */
 
-    public function getTweet();
+    public function getTweets();
 }

@@ -13,14 +13,14 @@ class TweetRepository implements TweetRepositoryInterface
      *
      * @return Tweet
      */
-    public function getTweet()
+    public function getTweets()
     {
-        $tweet = Tweet::get();
+        $tweets = Tweet::get();
 
-        if (!$tweet) {
+        if (!$tweets) {
             throw new FailedGetTweetException();
         }
 
-        return $tweet;
+        return $tweets;
     }
 }
