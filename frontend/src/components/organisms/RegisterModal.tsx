@@ -1,10 +1,17 @@
 'use client'
 
 import { useCallback, useState } from "react";
-import Modal from "./Modal";
-import Input from "../atoms/Input";
+import axios from "axios";
+import toast from "react-hot-toast";
+// import { signin } from 'next-auth/react';
+
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
+
+import Modal from "./Modal";
+import Input from "../atoms/Input";
+import { register } from "@/hooks/register";
+import { signin } from "@/hooks/signin";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -21,14 +28,34 @@ const RegisterModal = () => {
       setIsLoading(true);
 
       // TODO: Add REGISTER AND LOG IN
+      // await axios.post('/api/register', {
+      //   email,
+      //   password,
+      //   username,
+      //   name
+      // })
+      console.dir({ email, password, name })
+      await register(email, password, name);
+
+      toast.success('アカウントを作成しました。')
+
+      // singin('credetials', {
+      //   email,
+      //   password
+      // })
+      await signin(email, password)
+
+      toast.success('ログインしました。')
 
       registerModal.onClose();
     } catch (error) {
       console.log(error)
+      toast.error('何かが間違っている');
     } finally {
       setIsLoading(false)
     }
-  }, [registerModal])
+  }, [registerModal, email, password, username, name])
+  // }, [registerModal])
 
   const onToggle = useCallback(() => {
     if (isLoading) {

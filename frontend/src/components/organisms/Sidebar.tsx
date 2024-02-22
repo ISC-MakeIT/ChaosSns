@@ -2,6 +2,7 @@ import SidebarItem from "../molecules/SidebarItem";
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";
 import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
 import { TwitterLogo } from "../atoms/TwitterLogo";
+import { BiLogOut } from "react-icons/bi";
 
 export const Sidebar = () => {
   const items = [
@@ -41,6 +42,7 @@ export const Sidebar = () => {
             <TwitterLogo />
           </div>
           {SideItems}
+          <SidebarItem  icon={BiLogOut} label="ログアウト" />
           <SidebarTweetButton />
         </div>
       </div>
