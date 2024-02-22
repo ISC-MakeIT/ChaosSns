@@ -1,6 +1,5 @@
+import SidebarItem from "../molecules/SidebarItem";
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";
-
-import { SidebarItem } from "../molecules/SidebarItem";
 import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
 import { TwitterLogo } from "../atoms/TwitterLogo";
 

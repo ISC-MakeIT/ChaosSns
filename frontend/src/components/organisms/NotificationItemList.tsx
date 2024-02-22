@@ -1,4 +1,4 @@
-import { NotificationItem } from "../molecules/NotificationItem";
+import NotificationItem from "../molecules/NotificationItem";
 
 interface Notification {
     id: string;

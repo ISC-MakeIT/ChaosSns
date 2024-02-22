@@ -1,4 +1,4 @@
-import { Header } from "@/components/organisms/Header";
+import Header from "@/components/organisms/Header";
 import NotificationItemList from "@/components/organisms/NotificationItemList";
 
 export default function Index() {
