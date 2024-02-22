@@ -28,21 +28,11 @@ const RegisterModal = () => {
       setIsLoading(true);
 
       // TODO: Add REGISTER AND LOG IN
-      // await axios.post('/api/register', {
-      //   email,
-      //   password,
-      //   username,
-      //   name
-      // })
       console.dir({ email, password, name })
       await register(email, password, name);
 
       toast.success('アカウントを作成しました。')
 
-      // singin('credetials', {
-      //   email,
-      //   password
-      // })
       await signin(email, password)
 
       toast.success('ログインしました。')
