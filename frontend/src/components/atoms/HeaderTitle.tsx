@@ -1,5 +1,5 @@
 interface HeaderTitleProps {
-  children: string;
+  children: React.ReactNode;
 }
 
 export const HeaderTitle: React.FC<HeaderTitleProps> = ({ children }) => {
