@@ -1,4 +1,4 @@
-import { HeaderTitle } from "../atoms/HeaderTitle";
+import HeaderTitle from "../atoms/HeaderTitle";
 
 interface HeaderProps {
   children: React.ReactNode;

@@ -9,7 +9,7 @@ interface NotificationItemListProps {
     notifications: Notification[];
 };
 
-export const NotificationItemList: React.FC<NotificationItemListProps> = ({ notifications }) => {
+const NotificationItemList: React.FC<NotificationItemListProps> = ({ notifications }) => {
     const notificationItemList = notifications.map((notification) => {
         return <NotificationItem key={notification.id} body={notification.content} />
     })
@@ -20,3 +20,5 @@ export const NotificationItemList: React.FC<NotificationItemListProps> = ({ noti
         </div>
     );
 }
+
+export default NotificationItemList;

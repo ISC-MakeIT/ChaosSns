@@ -1,5 +1,5 @@
 import { BsTwitter } from "react-icons/bs";
-import { WhiteText } from "../atoms/WhiteText";
+import WhiteText from "../atoms/WhiteText";
 
 interface NotificationItemProps {
     body: string
