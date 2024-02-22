@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/users')->group(function() {
     Route::post('/', [UserController::class, 'create'])->name('users.registration');
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::prefix('/users')->group(function() {
+    Route::post('/login', [UserController::class, 'login'])->name('users.login');
     Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
+});
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::prefix('/users')->group(function() {
+        Route::get('/self', [UserController::class, 'getLoggedInUser'])->name('users.self');
+        Route::post('/logout', [UserController::class, 'logout'])->name('users.logout');
+    });
 });

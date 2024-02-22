@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\LoginRequest;
+use App\Models\User;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -20,10 +23,15 @@ class UserController extends Controller
         $this->s3Repo = $s3Repo;
     }
 
-    public function create(CreateUserRequest $request)
+    /**
+     * @param CreateUserRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function create(CreateUserRequest $request): JsonResponse
     {
         return DB::transaction(function() use ($request) {
-            $iconURL = $this->s3Repo->upload($request->validated('icon'));
+            $iconURL = $this->s3Repo->upload($request->file('icon'));
 
             $this->userRepo->create(
                 $request->validated('email'),
@@ -36,6 +44,7 @@ class UserController extends Controller
             return response()->json(['message' => 'create user successful']);
         });
     }
+
     public function show($id)
     {
         $user = $this->userRepo->find($id);
@@ -47,4 +56,43 @@ class UserController extends Controller
     }
 
 
+    
+
+    /**
+     * @param LoginRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        $this->userRepo->findOneByAuth(
+            $request->validated('email'),
+            $request->validated('password'),
+        );
+
+        return response()->json(['message' => 'login successful']);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        $this->userRepo->logout();
+
+        return response()->json(['message' => 'logout successful']);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getLoggedInUser(): JsonResponse
+    {
+        $user = $this->userRepo->getLoggedInUser();
+
+        return response()->json([
+            'message' => 'get user successful',
+            'user'    => $user->toArrayForLoggedInUser()
+        ]);
+    }
 }
