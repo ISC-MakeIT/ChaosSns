@@ -11,3 +11,14 @@ interface UserRepositoryInterface
     public function find(int $id): ?User;
     
 }
+
+ class UserRepository implements UserRepositoryInterface
+ {
+
+
+    public function find(int $id): ?User
+    {
+        return User::find($id);
+    }
+
+}
