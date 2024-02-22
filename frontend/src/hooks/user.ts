@@ -1,8 +1,9 @@
 import { csrfCookie } from "@/api";
-import { API_BASE_URL, API_ROUTES } from "@/consts/api";
+import { API_BASE_URL, API_ROUTES, apiAxios } from "@/consts/api";
 import { buildURL } from "@/helpers/buildURL";
+import axios from "axios";
 
-type User = {
+export type User = {
     id: number;
     email: string;
     name: string;
@@ -10,18 +11,28 @@ type User = {
     icon: string;
 };
 
-export const useUser = async (): Promise<User|undefined> => {
-    await csrfCookie();
-    const response = await fetch(
-        buildURL(API_BASE_URL, API_ROUTES.GET_LOGGEDIN_USER.PATH),
-        {
-            method: API_ROUTES.GET_LOGGEDIN_USER.METHOD,
-        }
-    );
-    
-    if (response.status === 200 && response.headers.get('Content-Type') === 'application/json') {
-        const responseData = response.json();
+export const useUser = async (): Promise<User | undefined> => {
+
+    try {
+        await csrfCookie();
+        // const response = await fetch(
+        //     buildURL(API_BASE_URL, API_ROUTES.GET_LOGGEDIN_USER.PATH),
+        //     {
+        //         method: API_ROUTES.GET_LOGGEDIN_USER.METHOD,
+        //     }
+        // );
+
+        const response = await apiAxios.get(
+            buildURL(API_BASE_URL, API_ROUTES.GET_LOGGEDIN_USER.PATH)
+        )
+
+    if (response.status === 200 && response.headers.getContentType === 'application/json') {
+        const responseData = response.data;
         return responseData;
+    }
+
+    } catch (e) {
+        console.log(e)
     }
     return undefined;
 }

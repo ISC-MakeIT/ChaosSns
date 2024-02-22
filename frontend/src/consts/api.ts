@@ -1,3 +1,5 @@
+import axios from "axios";
+
 type ApiRoute = {
     PATH: string;
     METHOD: string;
@@ -34,3 +36,10 @@ export const API_ROUTES: {[name: string]: ApiRoute} = {
 } as const;
 
 export const API_BASE_URL = process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_URL as string;
+
+export const apiAxios = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 1000,
+  withCredentials: true,
+  withXSRFToken: true 
+});
