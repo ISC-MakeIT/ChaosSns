@@ -1,11 +1,10 @@
+
 import { csrfCookie } from "@/api";
 import { API_ROUTES, apiAxios } from "@/consts/api";
 
-export const signin = async (email: string, password: string) => {
+export const signout = async () => {
     await csrfCookie();
-    const response = await apiAxios.post((API_ROUTES.LOGIN.PATH),
-        { email, password }
-    )
+    const response = await apiAxios.post((API_ROUTES.LOGOUT.PATH))
 
     if (response.status === 200 && response.headers.getContentType === 'application/json') {
         const responseData = response.data;

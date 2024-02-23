@@ -2,7 +2,7 @@ import SidebarItem from "../molecules/SidebarItem";
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";
 import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
 import { TwitterLogo } from "../atoms/TwitterLogo";
-import { BiLogOut } from "react-icons/bi";
+import SidebarLogout from "../molecules/SidebarLogout";
 
 export const Sidebar = () => {
   const items = [
@@ -34,6 +34,7 @@ export const Sidebar = () => {
     );
   });
 
+
   return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
       <div className="flex flex-col items-end">
@@ -42,7 +43,7 @@ export const Sidebar = () => {
             <TwitterLogo />
           </div>
           {SideItems}
-          <SidebarItem  icon={BiLogOut} label="ログアウト" />
+          <SidebarLogout />
           <SidebarTweetButton />
         </div>
       </div>
