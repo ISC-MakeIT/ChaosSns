@@ -9,7 +9,7 @@ class FailedGetNotificationsException extends RuntimeException implements HttpEx
 {
     public function getStatusCode(): int
     {
-        return 500;
+        return 404;
     }
 
     public function getResponseJson(): array
