@@ -28,6 +28,4 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 });
 
-Route::prefix('/users')->group(function() {
-    Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
-});
+

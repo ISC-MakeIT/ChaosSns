@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\LoginRequest;
-use App\Models\User;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -48,15 +47,11 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userRepo->find($id);
-
         if(!$user){
             return response()->json(['message' => 'user not found'], 404);
         }
         return response()->json($user);
     }
-
-
-    
 
     /**
      * @param LoginRequest $request
