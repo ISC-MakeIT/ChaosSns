@@ -1,20 +1,16 @@
-import { useUser } from "@/hooks/user";
 import { FollowBar } from "../organisms/Followbar";
 import { Sidebar } from "../organisms/Sidebar";
 import LoginModal from "../organisms/LoginModal";
 import RegisterModal from "../organisms/RegisterModal";
 import { Toaster } from 'react-hot-toast';
-// import { SessionProvider } from 'next-auth/react';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const BasicTemplate: React.FC<LayoutProps> = async ({ children }) => {
-  const user = await useUser();
   return (
     <>
-      {/* <SessionProvider session={pageProps.session}> */}
       <html>
         <body>
           <RegisterModal />
@@ -33,7 +29,6 @@ export const BasicTemplate: React.FC<LayoutProps> = async ({ children }) => {
           </div>
         </body>
       </html>
-      {/* </SessionProvider> */}
     </>
   );
 };

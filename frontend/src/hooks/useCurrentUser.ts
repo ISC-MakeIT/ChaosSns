@@ -1,17 +1,14 @@
 import useSWR from 'swr';
+import { API_ROUTES, apiAxios } from "@/consts/api";
 
-import fetcher from '../../libs/fetcher';
+const fetcher = (url: string) => apiAxios.get(url).then(res => res.data)
 
-const useCurrentUser = () => {
-    // TODO: 置き換える
-    const { data, error, isLoading, mutate}  = useSWR('/api/current', fetcher);
-
+function useCurrentUser() {
+    const { data, error, isLoading, mutate } = useSWR(API_ROUTES.GET_LOGGEDIN_USER.PATH, fetcher)
     return {
-        data,
-        error,
-        isLoading,
-        mutate
+        data, error, isLoading, mutate
     }
 }
+
 
 export default useCurrentUser;
