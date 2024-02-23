@@ -1,9 +1,9 @@
-import { Header } from "@/components/organisms/Header";
+import Header from "@/components/organisms/Header";
 
 export default function Home() {
   return (
     <div>
-      <Header children="ホーム" />
+      <Header>ホーム</Header>
     </div>
   );
 }
