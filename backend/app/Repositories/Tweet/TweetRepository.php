@@ -45,7 +45,7 @@ class TweetRepository implements TweetRepositoryInterface
     /**
      * @throws FailedGetTweetsException
      *
-     * @return 
+     * @return Collection
      */
 
     public function deleteTweet($id)
