@@ -9,16 +9,19 @@ export type User = {
     icon: string;
 };
 
-export const register = async (email: string, password: string, name: string): Promise<User | undefined> => {
+export const register = async (email: string, password: string, name: string, imageFile: File): Promise<User | undefined> => {
+    const blob = new Blob([imageFile], { type: 'image/png' })
+
+    const formData = new FormData();
+    formData.append('icon', blob);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('name', name);
+    formData.append('description', 'default')
+
     await csrfCookie();
 
-    const response = await apiAxios.post(API_ROUTES.REGISTRATION_USER.PATH, {
-        email: email,
-        password: password,
-        icon: "バイナリデータ",
-        name: name,
-        description: "",
-    })
+    const response = await apiAxios.post(API_ROUTES.REGISTRATION_USER.PATH, formData)
 
     if (response.status === 200 && response.headers.getContentType === 'application/json') {
         const responseData = response.data;
