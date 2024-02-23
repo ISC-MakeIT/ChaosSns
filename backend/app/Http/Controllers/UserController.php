@@ -6,6 +6,7 @@ use App\Http\Requests\User\LoginRequest;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -51,12 +52,31 @@ class UserController extends Controller
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        $this->userRepo->findOneByAuth(
-            $request->validated('email'),
-            $request->validated('password'),
-        );
+        // $this->userRepo->findOneByAuth(
+        //     $request->validated('email'),
+        //     $request->validated('password'),
+        // );
+        //
+        // return response()->json(['message' => 'login successful']);
 
-        return response()->json(['message' => 'login successful']);
+        // FIXME: 上記の場合だとuserが取得できなかったので実装を変えている
+        // DDDに合うように変更を頼みたい
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // return redirect()->intended('dashboard');
+
+            return response()->json(['message' => 'login successful']);
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
     /**
