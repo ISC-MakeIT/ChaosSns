@@ -11,5 +11,6 @@ interface TweetRepositoryInterface
      *
      * @return Collection
      */
-    public function findAll(): Collection;
+
+    public function getTweets(): Collection;
 }
