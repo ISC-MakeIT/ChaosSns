@@ -23,4 +23,5 @@ interface TweetRepositoryInterface
         ?string $file = null,
         ?int $replyTo = null,
     ): Tweet;
+    public function deleteTweet($id);
 }

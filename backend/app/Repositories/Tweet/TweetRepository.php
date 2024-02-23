@@ -42,4 +42,21 @@ class TweetRepository implements TweetRepositoryInterface
             'reply_to' => $replyTo
         ]);
     }
+    /**
+     * @throws FailedGetTweetsException
+     *
+     * @return 
+     */
+
+    public function deleteTweet($id)
+    {
+        $tweet = Tweet::find($id);
+        $tweet->delete();
+
+        if (!$tweet) {
+            throw new FailedGetTweetsException();
+        }
+
+        return $tweet;
+    }
 }

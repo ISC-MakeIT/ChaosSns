@@ -7,6 +7,7 @@ use App\Models\SpamUser;
 use App\Models\TweetKind;
 use App\Repositories\Encoder\Interface\EncoderRepositoryInterface;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
+use App\Models\Tweet;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -84,5 +85,11 @@ class TweetController extends Controller
         }
 
         return $tweet;
+    }
+    public function deleteTweet($id)
+    {
+        $tweet = $this->tweetRepo->deleteTweet($id);
+
+        return redirect()->route('tweets');
     }
 }
