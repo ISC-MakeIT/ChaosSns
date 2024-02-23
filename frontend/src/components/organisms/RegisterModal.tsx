@@ -21,20 +21,18 @@ const RegisterModal = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [imageFile, setImageFile] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      // TODO: Add REGISTER AND LOG IN
-      console.dir({ email, password, name })
-      await register(email, password, name);
-
+      console.dir({ email, password, name, imageFile })
+      await register(email, password, name, imageFile!);
       toast.success('アカウントを作成しました。')
 
       await signin(email, password)
-
       toast.success('ログインしました。')
 
       registerModal.onClose();
@@ -44,8 +42,7 @@ const RegisterModal = () => {
     } finally {
       setIsLoading(false)
     }
-  }, [registerModal, email, password, username, name])
-  // }, [registerModal])
+  }, [registerModal, email, password, username, name, imageFile])
 
   const onToggle = useCallback(() => {
     if (isLoading) {
@@ -84,6 +81,9 @@ const RegisterModal = () => {
         value={password}
         disabled={isLoading}
       />
+
+
+      <input type="file" onChange={(e) => setImageFile(e.target.files![0])} />
     </div>
   )
 

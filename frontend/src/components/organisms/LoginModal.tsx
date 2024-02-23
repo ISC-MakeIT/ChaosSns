@@ -5,6 +5,8 @@ import Modal from "./Modal";
 import Input from "../atoms/Input";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import toast from "react-hot-toast";
+import { signin } from "@/hooks/signin";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -17,8 +19,9 @@ const LoginModal = () => {
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-
-      // TODO: Add LOG IN
+      
+      await signin(email, password)
+      toast.success('ログインしました。')
 
       loginModal.onClose();
     } catch (error) {
@@ -26,7 +29,7 @@ const LoginModal = () => {
     } finally {
       setIsLoading(false)
     }
-  }, [loginModal])
+  }, [loginModal, email, password])
 
 
   const onToggle = useCallback(() => {
