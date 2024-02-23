@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::prefix('/tweets')->group(function () {
     Route::get('/', [TweetController::class, 'getTweets']);
+});
+
+Route::prefix('/notifications')->group(function () {
+    Route::get('/', [NotificationController::class, 'getNotifications']);
 });

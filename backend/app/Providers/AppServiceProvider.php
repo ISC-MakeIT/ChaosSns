@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Tweet\TweetRepository::class
         );
         $this->app->bind(
+            \App\Repositories\Notification\Interface\NotificationRepositoryInterface::class,
+            \App\Repositories\Notification\NotificationRepository::class
+        );
+        $this->app->bind(
             \App\Repositories\User\Interface\UserRepositoryInterface::class,
             \App\Repositories\User\UserRepository::class
         );
