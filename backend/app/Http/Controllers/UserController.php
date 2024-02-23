@@ -6,6 +6,7 @@ use App\Http\Requests\User\LoginRequest;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -82,10 +83,14 @@ class UserController extends Controller
     /**
      * @return JsonResponse
      */
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
-        $this->userRepo->logout();
 
+        // $this->userRepo->logout();
+
+        // FIXME: 上記の場合だとuserが取得できなかったので実装を変えている
+        // DDDに合うように変更を頼みたい
+        $request->session()->invalidate();
         return response()->json(['message' => 'logout successful']);
     }
 
