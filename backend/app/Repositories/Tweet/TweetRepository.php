@@ -4,6 +4,7 @@ namespace App\Repositories\Tweet;
 
 use App\Models\Tweet;
 use App\Models\TweetKind;
+use App\Repositories\Tweet\Exceptions\FailedDeleteTweetsException;
 use App\Repositories\Tweet\Exceptions\FailedGetTweetsException;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 use Illuminate\Support\Collection;
@@ -43,7 +44,7 @@ class TweetRepository implements TweetRepositoryInterface
         ]);
     }
     /**
-     * @throws FailedGetTweetsException
+     * @throws FailedDeleteTweetsException
      *
      * @return Collection
      */
@@ -51,11 +52,13 @@ class TweetRepository implements TweetRepositoryInterface
     public function deleteTweet($id)
     {
         $tweet = Tweet::find($id);
-        $tweet->delete();
 
         if (!$tweet) {
-            throw new FailedGetTweetsException();
+            throw new FailedDeleteTweetsException();
         }
+
+        $tweet->delete();
+
 
         return $tweet;
     }

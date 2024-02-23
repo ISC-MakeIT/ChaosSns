@@ -16,12 +16,10 @@ interface TweetRepositoryInterface
 
     public function getTweets(): Collection;
 
-    public function create(
-        int $owner,
-        string $content,
-        TweetKind $tweetKind,
-        ?string $file = null,
-        ?int $replyTo = null,
-    ): Tweet;
+    /**
+     * 特定のツイート削除
+     *
+     * @return Collection
+     */
     public function deleteTweet($id);
 }
