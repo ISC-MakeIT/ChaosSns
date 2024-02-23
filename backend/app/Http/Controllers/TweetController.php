@@ -88,7 +88,7 @@ class TweetController extends Controller
     }
     public function deleteTweet($id)
     {
-        $tweet = $this->tweetRepo->deleteTweet($id);
+        $this->tweetRepo->deleteTweet($id);
 
         return redirect()->route('tweets');
     }
