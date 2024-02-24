@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TweetActionController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,8 @@ Route::prefix('/tweets')->group(function () {
     Route::get('/', [TweetController::class, 'getTweets'])->name('tweets');
 
     Route::delete('/{id}', [TweetController::class, 'deleteTweet']);
+
+    Route::get('/action/{tweet}', [TweetActionController::class, 'toggleActionTweet']);
 });
 
 Route::prefix('/notifications')->group(function () {

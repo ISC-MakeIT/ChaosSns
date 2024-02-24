@@ -3,7 +3,9 @@
 namespace App\Repositories\Tweet;
 
 use App\Models\Tweet;
+use App\Models\TweetAction;
 use App\Models\TweetKind;
+use App\Models\User;
 use App\Repositories\Tweet\Exceptions\FailedDeleteTweetException;
 use App\Repositories\Tweet\Exceptions\FailedGetTweetsException;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
@@ -33,8 +35,7 @@ class TweetRepository implements TweetRepositoryInterface
         TweetKind $tweetKind,
         ?string $file = null,
         ?int $replyTo = null,
-    ): Tweet
-    {
+    ): Tweet {
         return Tweet::create([
             'user_id'  => $owner,
             'content'  => $content,
@@ -61,5 +62,19 @@ class TweetRepository implements TweetRepositoryInterface
 
 
         return $tweet;
+    }
+
+    public function toggleActionTweet(Tweet $tweet, User $user): bool
+    {
+        $tweetAction = TweetAction::where("user_id", $user->id)->where('tweet_id', $tweet->id)->first();
+        if ($tweetAction) {
+            $tweetAction->delete();
+            return false;
+        }
+        TweetAction::create([
+            'user_id'  => $user->id,
+            'tweet_id' => $tweet->id,
+        ]);
+        return true;
     }
 }

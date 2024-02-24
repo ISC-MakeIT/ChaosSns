@@ -4,6 +4,7 @@ namespace App\Repositories\Tweet\Interface;
 
 use App\Models\Tweet;
 use App\Models\TweetKind;
+use App\Models\User;
 use Illuminate\Support\Collection;
 
 interface TweetRepositoryInterface
@@ -30,4 +31,6 @@ interface TweetRepositoryInterface
      * @return Collection
      */
     public function deleteTweet($id);
+    
+    public function toggleActionTweet(Tweet $tweet, User $user): bool;
 }
