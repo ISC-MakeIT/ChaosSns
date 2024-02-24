@@ -3,7 +3,6 @@ import Header from "@/components/organisms/Header";
 import TweetFeed from "@/components/organisms/TweetFeed";
 
 export default function Home() {
-
   return (
     <div>
       <Header>ホーム</Header>

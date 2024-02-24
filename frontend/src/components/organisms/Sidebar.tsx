@@ -22,12 +22,11 @@ export const Sidebar = async () => {
   ];
 
   if (response) {
-    items.push(
-      {
-        label: "プロフィール",
-        href: `/users/${response.user.id}`,
-        icon: AiOutlineUser,
-      });
+    items.push({
+      label: "プロフィール",
+      href: `/users/${response.user.id}`,
+      icon: AiOutlineUser,
+    });
   }
 
   const sideItems = items.map((item) => {
@@ -41,7 +40,7 @@ export const Sidebar = async () => {
     );
   });
 
-  const sidebarLogout = response ? <SidebarLogout /> : <></>
+  const sidebarLogout = response ? <SidebarLogout /> : <></>;
 
   return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
@@ -58,4 +57,3 @@ export const Sidebar = async () => {
     </div>
   );
 };
-

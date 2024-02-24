@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import axios from 'axios';
-import { useCallback, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import axios from "axios";
+import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
-import useLoginModal from '@/hooks/useLoginModal';
-import useRegisterModal from '@/hooks/useRegisterModal';
-import useCurrentUser from '@/hooks/useCurrentUser';
-import useTweets from '@/hooks/useTweets';
-import useTweet from '@/hooks/useTweet';
+import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useTweets from "@/hooks/useTweets";
+import useTweet from "@/hooks/useTweet";
 
-import Avatar from '../atoms/Avatar';
-import Button from '../atoms/Button';
+import Avatar from "../atoms/Avatar";
+import Button from "../atoms/Button";
 
 interface FormProps {
   placeholder: string;
@@ -27,23 +27,23 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   const { mutate: mutatePosts } = useTweets();
   const { mutate: mutatePost } = useTweet(postId as string);
 
-  const [body, setBody] = useState('');
+  const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      const url = isComment ? `/api/comments?postId=${postId}` : '/api/posts';
+      const url = isComment ? `/api/comments?postId=${postId}` : "/api/posts";
 
       await axios.post(url, { body });
 
-      toast.success('Tweet created');
-      setBody('');
+      toast.success("Tweet created");
+      setBody("");
       mutatePosts();
       mutatePost();
     } catch (error) {
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -74,9 +74,9 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
                 placeholder-neutral-500 
                 text-white
               "
-              placeholder={placeholder}>
-            </textarea>
-            <hr 
+              placeholder={placeholder}
+            ></textarea>
+            <hr
               className="
                 opacity-0 
                 peer-focus:opacity-100 
@@ -86,13 +86,19 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
                 transition"
             />
             <div className="mt-4 flex flex-row justify-end">
-              <Button disabled={isLoading || !body} onClick={onSubmit} label="Tweet" />
+              <Button
+                disabled={isLoading || !body}
+                onClick={onSubmit}
+                label="Tweet"
+              />
             </div>
           </div>
         </div>
       ) : (
         <div className="py-8">
-          <h1 className="text-white text-2xl text-center mb-4 font-bold">Welcome to Twitter</h1>
+          <h1 className="text-white text-2xl text-center mb-4 font-bold">
+            Welcome to Twitter
+          </h1>
           <div className="flex flex-row items-center justify-center gap-4">
             <Button label="Login" onClick={loginModal.onOpen} />
             <Button label="Register" onClick={registerModal.onOpen} secondary />

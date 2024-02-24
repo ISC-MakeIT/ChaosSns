@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useCallback, useState } from "react";
 import axios from "axios";
@@ -17,10 +17,10 @@ const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [imageFile, setImageFile] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,21 +28,21 @@ const RegisterModal = () => {
     try {
       setIsLoading(true);
 
-      console.dir({ email, password, name, imageFile })
+      console.dir({ email, password, name, imageFile });
       await register(email, password, name, imageFile!);
-      toast.success('アカウントを作成しました。')
+      toast.success("アカウントを作成しました。");
 
-      await signin(email, password)
-      toast.success('ログインしました。')
+      await signin(email, password);
+      toast.success("ログインしました。");
 
       registerModal.onClose();
     } catch (error) {
-      console.log(error)
-      toast.error('何かが間違っている');
+      console.log(error);
+      toast.error("何かが間違っている");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [registerModal, email, password, username, name, imageFile])
+  }, [registerModal, email, password, username, name, imageFile]);
 
   const onToggle = useCallback(() => {
     if (isLoading) {
@@ -50,7 +50,7 @@ const RegisterModal = () => {
     }
     registerModal.onClose();
     loginModal.onOpen();
-  }, [isLoading, registerModal, loginModal])
+  }, [isLoading, registerModal, loginModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -83,14 +83,14 @@ const RegisterModal = () => {
         type="password"
       />
 
-
       <input type="file" onChange={(e) => setImageFile(e.target.files![0])} />
     </div>
-  )
+  );
 
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
-      <p>すでにアカウントを持っていますか？
+      <p>
+        すでにアカウントを持っていますか？
         <span
           onClick={onToggle}
           className="
@@ -103,7 +103,7 @@ const RegisterModal = () => {
         </span>
       </p>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -116,7 +116,7 @@ const RegisterModal = () => {
       body={bodyContent}
       footer={footerContent}
     />
-  )
-}
+  );
+};
 
 export default RegisterModal;

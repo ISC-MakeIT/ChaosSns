@@ -2,7 +2,7 @@ import { FollowBar } from "../organisms/Followbar";
 import { Sidebar } from "../organisms/Sidebar";
 import LoginModal from "../organisms/LoginModal";
 import RegisterModal from "../organisms/RegisterModal";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 
 interface LayoutProps {
   children: React.ReactNode;

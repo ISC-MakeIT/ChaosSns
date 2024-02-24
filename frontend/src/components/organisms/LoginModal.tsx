@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useCallback, useState } from "react";
 import Modal from "./Modal";
@@ -12,25 +12,24 @@ const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      
-      await signin(email, password)
-      toast.success('ログインしました。')
+
+      await signin(email, password);
+      toast.success("ログインしました。");
 
       location.reload();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [loginModal, email, password])
-
+  }, [loginModal, email, password]);
 
   const onToggle = useCallback(() => {
     if (isLoading) {
@@ -38,7 +37,7 @@ const LoginModal = () => {
     }
     loginModal.onClose();
     registerModal.onOpen();
-  }, [isLoading, loginModal, registerModal])
+  }, [isLoading, loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -57,12 +56,12 @@ const LoginModal = () => {
         type="password"
       />
     </div>
-  )
-
+  );
 
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
-      <p>初めて使用しますか？
+      <p>
+        初めて使用しますか？
         <span
           onClick={onToggle}
           className="
@@ -71,11 +70,11 @@ const LoginModal = () => {
           hover:underline
           "
         >
-         新規登録
+          新規登録
         </span>
       </p>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -88,7 +87,7 @@ const LoginModal = () => {
       body={bodyContent}
       footer={footerContent}
     />
-  )
-}
+  );
+};
 
 export default LoginModal;
