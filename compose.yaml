@@ -45,3 +45,4 @@ services:
       MYSQL_ROOT_PASSWORD: root
       TZ: "Asia/Tokyo"
       LC_ALL: "C.UTF-8"
+    platform: linux/amd64
