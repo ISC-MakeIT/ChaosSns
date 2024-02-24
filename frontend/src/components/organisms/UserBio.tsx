@@ -30,6 +30,11 @@ const UserBio: React.FC<UserBioProps> = ({
   const editUserModal = useEditUserModal();
 
   const handleToggleFollow = () => {
+    if (!currentUserId) {
+      toast.error("ログインを行ってください。");
+      return;
+    }
+
     const actionSuccessful = followUser(user.id);
 
     if (!actionSuccessful) {

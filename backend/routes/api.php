@@ -38,6 +38,7 @@ Route::prefix('/tweets')->group(function () {
 Route::prefix('/notifications')->group(function () {
     Route::get('/', [NotificationController::class, 'getNotifications']);
     Route::get('/not_read_count', [NotificationController::class, 'getNotReadNotificationsCount']);
+    Route::post('/read_all', [NotificationController::class, 'readAllNotifications']);
 });
 
 Route::prefix('/users')->group(function () {

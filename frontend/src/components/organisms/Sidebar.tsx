@@ -7,7 +7,7 @@ import useCurrentUser from "@/hooks/server/useCurrentUser";
 import getNotReadNotificationsCount from "@/api/server/getNotReadNotificationsCount";
 
 export const Sidebar = async () => {
-  const response          = await useCurrentUser();
+  const response = await useCurrentUser();
   const notificationCount = await getNotReadNotificationsCount();
 
   const items = [
@@ -19,11 +19,11 @@ export const Sidebar = async () => {
   ];
 
   if (response) {
-    let notificationsLabel = '通知';
+    let notificationsLabel = "通知";
     if (notificationCount !== 0) {
       notificationsLabel = `通知 ${notificationCount}件`;
     }
-    
+
     items.push(
       {
         label: notificationsLabel,
@@ -34,7 +34,7 @@ export const Sidebar = async () => {
         label: "プロフィール",
         href: `/users/${response.user.id}`,
         icon: AiOutlineUser,
-      }
+      },
     );
   }
 

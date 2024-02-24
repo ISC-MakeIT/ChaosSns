@@ -23,10 +23,10 @@ class NotificationController extends Controller
         $loggedInUser  = $this->userRepo->getLoggedInUser();
         $notifications = $this->notificationRepo->getNotificationsByUser($loggedInUser);
 
-        return [
+        return response()->json([
             'message' => 'get notifications successful',
             'notifications' => $notifications
-        ];
+        ]);
     }
 
     public function getNotReadNotificationsCount()
@@ -34,9 +34,19 @@ class NotificationController extends Controller
         $loggedInUser = $this->userRepo->getLoggedInUser();
         $count        = $this->notificationRepo->getNotReadNotificationsCountByUser($loggedInUser);
 
-        return [
+        return response()->json([
             'message' => 'get not read notifications count successful',
             'count'   => $count
-        ];
+        ]);
+    }
+
+    public function readAllNotifications()
+    {
+        $loggedInUser = $this->userRepo->getLoggedInUser();
+        $this->notificationRepo->readNotificationsByUser($loggedInUser);
+
+        return response()->json([
+            'message' => 'read notifications successful'
+        ]);
     }
 }

@@ -17,9 +17,9 @@ const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [imageFile, setImageFile] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +41,7 @@ const RegisterModal = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [registerModal, email, password, name, imageFile])
+  }, [registerModal, email, password, name, imageFile]);
 
   const onToggle = useCallback(() => {
     if (isLoading) {

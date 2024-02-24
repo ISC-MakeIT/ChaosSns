@@ -1,5 +1,5 @@
 import { csrfCookie } from "@/api/server/csrfCookie";
-import { API_ROUTES, apiAxios } from "@/consts/api"
+import { API_ROUTES, apiAxios } from "@/consts/api";
 import { User } from "@/types/user";
 import { headers } from "next/headers";
 
@@ -8,14 +8,16 @@ type ResponseData = {
   user: User;
 };
 
-const useCurrentUser = async (): Promise<ResponseData|undefined> => {
-    let data: ResponseData|undefined = undefined;
-    
-    try {
-      const headerList = headers();
-      
-      await csrfCookie(headerList);
-      const response = await apiAxios.get<ResponseData>(API_ROUTES.GET_LOGGEDIN_USER.PATH, {
+const useCurrentUser = async (): Promise<ResponseData | undefined> => {
+  let data: ResponseData | undefined = undefined;
+
+  try {
+    const headerList = headers();
+
+    await csrfCookie(headerList);
+    const response = await apiAxios.get<ResponseData>(
+      API_ROUTES.GET_LOGGEDIN_USER.PATH,
+      {
         headers: {
           Cookie: headerList.get("Cookie") ?? "",
           referer: headerList.get("referer") ?? "",

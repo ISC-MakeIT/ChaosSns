@@ -8,20 +8,23 @@ type ResponseData = {
 };
 
 const getNotifications = async (): Promise<Notification[]> => {
-    try {
-        const headerList = headers();
-        
-        const response = await apiAxios.get<ResponseData>(API_ROUTES.GET_NOTIFICATIONS.PATH, {
-            headers: {
-              Cookie: headerList.get('Cookie') ?? '',
-              referer: headerList.get('referer') ?? ''
-            }
-        });
-        return response.data.notifications;
-    } catch (e) {
-        console.error(e);
-    }
-    return [];
-}
+  try {
+    const headerList = headers();
+
+    const response = await apiAxios.get<ResponseData>(
+      API_ROUTES.GET_NOTIFICATIONS.PATH,
+      {
+        headers: {
+          Cookie: headerList.get("Cookie") ?? "",
+          referer: headerList.get("referer") ?? "",
+        },
+      },
+    );
+    return response.data.notifications;
+  } catch (e) {
+    console.error(e);
+  }
+  return [];
+};
 
 export default getNotifications;
