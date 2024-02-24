@@ -8,8 +8,6 @@ use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -51,7 +49,8 @@ class UserController extends Controller
 
     public function find(Request $request ,$id)
     {
-        $user = $this->userRepo->findOneById($id);
+        $user = $this->userRepo->findOneById(intval($id));
+
         if(!$user){
             return response()->json(['message' => 'user not found'], 404);
         }
@@ -66,31 +65,14 @@ class UserController extends Controller
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        // $this->userRepo->findOneByAuth(
-        //     $request->validated('email'),
-        //     $request->validated('password'),
-        // );
-        //
-        // return response()->json(['message' => 'login successful']);
+        $user = $this->userRepo->findOneByAuth(
+            $request->validated('email'),
+            $request->validated('password'),
+        );
 
-        // FIXME: 上記の場合だとuserが取得できなかったので実装を変えている
-        // DDDに合うように変更を頼みたい
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        $this->userRepo->login($user);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            // return redirect()->intended('dashboard');
-
-            return response()->json(['message' => 'login successful']);
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return response()->json(['message' => 'login successful']);
     }
 
     /**
@@ -98,12 +80,8 @@ class UserController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
+        $this->userRepo->logout();
 
-        // $this->userRepo->logout();
-
-        // FIXME: 上記の場合だとuserが取得できなかったので実装を変えている
-        // DDDに合うように変更を頼みたい
-        $request->session()->invalidate();
         return response()->json(['message' => 'logout successful']);
     }
 

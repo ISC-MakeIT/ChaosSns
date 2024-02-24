@@ -8,8 +8,7 @@ interface UserRepositoryInterface
 {
     public function create(string $email, string $description, string $password, string $name, string $iconURL): User;
 
-    public function find(int $id): User;
-
+    public function findOneById(int $id): User;
 
     public function findOneByAuth(string $email, string $password): User;
 
