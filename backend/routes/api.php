@@ -16,12 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/users')->group(function () {
-    Route::post('/', [UserController::class, 'create'])->name('users.registration');
-    Route::post('/login', [UserController::class, 'login'])->name('users.login');
-    Route::get('/{id}', [UserController::class, 'find'])->name('users.find');
-});
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/users')->group(function () {
         Route::get('/self', [UserController::class, 'getLoggedInUser'])->name('users.self');
@@ -38,4 +32,10 @@ Route::prefix('/tweets')->group(function () {
 
 Route::prefix('/notifications')->group(function () {
     Route::get('/', [NotificationController::class, 'getNotifications']);
+});
+
+Route::prefix('/users')->group(function () {
+    Route::post('/', [UserController::class, 'create'])->name('users.registration');
+    Route::post('/login', [UserController::class, 'login'])->name('users.login');
+    Route::get('/{id}', [UserController::class, 'find'])->name('users.find');
 });

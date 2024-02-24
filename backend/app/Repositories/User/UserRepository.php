@@ -33,7 +33,6 @@ class UserRepository implements UserRepositoryInterface
         }
     }
 
-
     public function findOneById(int $id): User
     {
         $user = User::find($id);
@@ -80,6 +79,7 @@ class UserRepository implements UserRepositoryInterface
     {
         try {
             auth()->login($user);
+            session()->regenerate();
         } catch (Throwable $e) {
             throw new FailedLoginException();
         }
