@@ -85,7 +85,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 hidden
                 md:block
             ">
-              @{data.username}
+              @{data.user_id}
             </span>
             <span className="text-neutral-500 text-sm">
               {createdAt}
