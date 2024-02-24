@@ -52,7 +52,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findOneByAuth(string $email, string $password): User
     {
-        $user = User::find($email);
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             throw new FailedFindUserException();
