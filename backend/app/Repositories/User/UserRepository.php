@@ -45,6 +45,21 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
+
+    public function Edit_Icon(int $id, string $iconURL): void
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new FailedFindUserException();
+        }
+
+        $user->icon = $iconURL;
+        $user->save();
+    }
+
+
+
     /**
      * @throws FailedLoginException
      *
