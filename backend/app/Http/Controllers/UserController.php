@@ -5,6 +5,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\LoginRequest;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
@@ -44,12 +45,13 @@ class UserController extends Controller
         });
     }
 
-    public function show($id)
+    public function find(Request $request ,$id)
     {
-        $user = $this->userRepo->find($id);
+        $user = $this->userRepo->findOneById($id);
         if(!$user){
             return response()->json(['message' => 'user not found'], 404);
         }
+        
         return response()->json($user);
     }
 

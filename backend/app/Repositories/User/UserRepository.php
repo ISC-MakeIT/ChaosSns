@@ -34,7 +34,7 @@ class UserRepository implements UserRepositoryInterface
     }
 
 
-    public function find(int $id): User
+    public function findOneById(int $id): User
     {
         $user = User::find($id);
 
