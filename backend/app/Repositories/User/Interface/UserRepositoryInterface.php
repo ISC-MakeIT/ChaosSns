@@ -10,7 +10,7 @@ interface UserRepositoryInterface
 
     public function findOneById(int $id): User;
 
-    public function Edit_Icon(int $id, string $iconURL): void;
+    public function editUserIcon(int $id, string $iconURL): User;
 
 
     public function findOneByAuth(string $email, string $password): User;
