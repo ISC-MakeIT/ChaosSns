@@ -70,7 +70,8 @@ class TweetController extends Controller
             $user->id,
             $request->validated('content'),
             TweetKind::BAD,
-            $outputtedFileURL
+            $outputtedFileURL,
+            $request->validated('reply_to')
         );
 
         for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
