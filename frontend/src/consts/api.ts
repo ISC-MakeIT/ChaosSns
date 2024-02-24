@@ -48,6 +48,10 @@ export const API_ROUTES: {[name: string]: ApiRoute} = {
     GET_NOTIFICATIONS: {
         PATH: '/api/notifications',
         METHOD: METHODS.GET,
+    }, 
+    GET_TWEETS:{
+        PATH: "/api/tweets",
+        METHOD: METHODS.GET,
     }
 } as const;
 
