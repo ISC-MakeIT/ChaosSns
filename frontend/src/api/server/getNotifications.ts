@@ -3,8 +3,8 @@ import { Notification } from "@/types/notification";
 import { headers } from "next/headers";
 
 type ResponseData = {
-    message: string;
-    notifications: Notification[];
+  message: string;
+  notifications: Notification[];
 };
 
 const getNotifications = async (): Promise<Notification[]> => {

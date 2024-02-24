@@ -1,15 +1,15 @@
 import axios from "axios";
 
 type ApiRoute = {
-    PATH: string;
-    METHOD: string;
+  PATH: string;
+  METHOD: string;
 };
 
 const METHODS = {
-    GET: 'GET',
-    POST: 'POST',
-    PUT: 'PUT',
-    DELETE: 'DELETE',
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  DELETE: "DELETE",
 } as const;
 
 export const API_ROUTES: {[name: string]: ApiRoute} = {
@@ -59,7 +59,8 @@ export const API_ROUTES: {[name: string]: ApiRoute} = {
     }
 } as const;
 
-export const API_BASE_URL = process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_URL as string;
+export const API_BASE_URL =
+  process.env.API_BASE_URL || (process.env.NEXT_PUBLIC_API_URL as string);
 
 export const apiAxios = axios.create({
   baseURL: API_BASE_URL,

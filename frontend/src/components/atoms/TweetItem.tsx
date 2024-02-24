@@ -1,13 +1,13 @@
-import { useRouter } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
-import { AiFillHeart, AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai';
-import { formatDistanceToNowStrict } from 'date-fns';
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import { AiFillHeart, AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
+import { formatDistanceToNowStrict } from "date-fns";
 
-import useLoginModal from '@/hooks/useLoginModal';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import useLoginModal from "@/hooks/useLoginModal";
+import useCurrentUser from "@/hooks/useCurrentUser";
 // import useLike from '@/hooks/useLike';
 
-import Avatar from '../atoms/Avatar';
+import Avatar from "../atoms/Avatar";
 interface PostItemProps {
   data: Record<string, any>;
   userId?: string;
@@ -20,10 +20,13 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
   const { data: currentUser } = useCurrentUser();
   // const { hasLiked, toggleLike } = useLike({ postId: data.id, userId});
 
-  const goToUser = useCallback((ev: any) => {
-    ev.stopPropagation();
-    router.push(`/users/${data.id}`)
-  }, [router, data.id]);
+  const goToUser = useCallback(
+    (ev: any) => {
+      ev.stopPropagation();
+      router.push(`/users/${data.id}`);
+    },
+    [router, data.id],
+  );
 
   const goToPost = useCallback(() => {
     router.push(`/posts/${data.id}`);
@@ -47,7 +50,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     }
 
     return formatDistanceToNowStrict(new Date(data.createdAt));
-  }, [data.createdAt])
+  }, [data.createdAt]);
 
   return (
     <div
@@ -59,7 +62,8 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
         cursor-pointer 
         hover:bg-neutral-900 
         transition
-      ">
+      "
+    >
       <div className="flex flex-row items-start gap-3">
         <div>
           <Avatar userId={data.id} />
@@ -73,7 +77,8 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 font-semibold 
                 cursor-pointer 
                 hover:underline
-            ">
+            "
+            >
               {data.name}
             </p>
             <span
@@ -84,16 +89,13 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 hover:underline
                 hidden
                 md:block
-            ">
+            "
+            >
               @{data.user_id}
             </span>
-            <span className="text-neutral-500 text-sm">
-              {createdAt}
-            </span>
+            <span className="text-neutral-500 text-sm">{createdAt}</span>
           </div>
-          <div className="text-white mt-1">
-            {data.content}
-          </div>
+          <div className="text-white mt-1">{data.content}</div>
           <div className="flex flex-row items-center mt-3 gap-10">
             <div
               className="
@@ -105,11 +107,10 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 cursor-pointer 
                 transition 
                 hover:text-sky-500
-            ">
+            "
+            >
               <AiOutlineMessage size={20} />
-              <p>
-                {data.comments?.length || 0}
-              </p>
+              <p>{data.comments?.length || 0}</p>
             </div>
             <div
               // onClick={onLike}
@@ -122,7 +123,8 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 cursor-pointer 
                 transition 
                 hover:text-red-500
-            ">
+            "
+            >
               {/* <LikeIcon color={hasLiked ? 'red' : ''} size={20} />
               <p>
                 {data.likedIds.length}
@@ -133,7 +135,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default TweetItem;

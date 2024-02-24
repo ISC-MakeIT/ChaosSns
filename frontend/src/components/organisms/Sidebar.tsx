@@ -49,7 +49,7 @@ export const Sidebar = async () => {
     );
   });
 
-  const sidebarLogout = response ? <SidebarLogout /> : <></>
+  const sidebarLogout = response ? <SidebarLogout /> : <></>;
 
   return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
@@ -66,4 +66,3 @@ export const Sidebar = async () => {
     </div>
   );
 };
-

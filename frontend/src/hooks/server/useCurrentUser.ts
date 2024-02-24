@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 type ResponseData = {
   message: string;
   user: User;
-}
+};
 
 const useCurrentUser = async (): Promise<ResponseData|undefined> => {
     let data: ResponseData|undefined = undefined;
@@ -17,16 +17,17 @@ const useCurrentUser = async (): Promise<ResponseData|undefined> => {
       await csrfCookie(headerList);
       const response = await apiAxios.get<ResponseData>(API_ROUTES.GET_LOGGEDIN_USER.PATH, {
         headers: {
-          Cookie: headerList.get('Cookie') ?? '',
-          referer: headerList.get('referer') ?? ''
-        }
-      });
-      data = await response.data;
-    } catch (e) {
-      console.error(e)
-    }
+          Cookie: headerList.get("Cookie") ?? "",
+          referer: headerList.get("referer") ?? "",
+        },
+      },
+    );
+    data = await response.data;
+  } catch (e) {
+    console.error(e);
+  }
 
-    return data;
-}
+  return data;
+};
 
 export default useCurrentUser;

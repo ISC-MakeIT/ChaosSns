@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useCallback, useState } from "react";
 import Modal from "./Modal";
@@ -8,31 +8,34 @@ import useEditUserModal from "@/hooks/useEditUserModal";
 import { updateUser } from "@/api/updateUser";
 
 type EditUserModalProps = {
-    oldDescription: string;
-    oldName: string;
-}
+  oldDescription: string;
+  oldName: string;
+};
 
-const EditUserModal: React.FC<EditUserModalProps> = ({ oldDescription, oldName }) => {
+const EditUserModal: React.FC<EditUserModalProps> = ({
+  oldDescription,
+  oldName,
+}) => {
   const editUserModal = useEditUserModal();
 
   const [description, setDescription] = useState(oldDescription);
-  const [name, setName]               = useState(oldName);
-  const [isLoading, setIsLoading]     = useState(false);
+  const [name, setName] = useState(oldName);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      
+
       await updateUser(description, name);
-      toast.success('ユーザーを更新しました。')
+      toast.success("ユーザーを更新しました。");
 
       location.reload();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [description, name])
+  }, [description, name]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -43,7 +46,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ oldDescription, oldName }
         disabled={isLoading}
         type="text"
       />
-      
+
       <Input
         placeholder="自己紹介"
         onChange={(e) => setDescription(e.target.value)}
@@ -63,7 +66,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ oldDescription, oldName }
       onSubmit={onSubmit}
       body={bodyContent}
     />
-  )
-}
+  );
+};
 
 export default EditUserModal;
