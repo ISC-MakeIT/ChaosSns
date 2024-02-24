@@ -13,7 +13,6 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import postTweet from "@/api/postTweet";
 import useTweets from "@/hooks/useTweets";
 
-
 const PostTweetModal = () => {
   const postTweetModal = usePostTweetModal();
 
@@ -31,7 +30,7 @@ const PostTweetModal = () => {
 
       await postTweet(text, imageFile);
       toast.success("投稿しました。");
-      mutateTweets()
+      mutateTweets();
 
       postTweetModal.onClose();
     } catch (error) {
@@ -41,7 +40,6 @@ const PostTweetModal = () => {
       setIsLoading(false);
     }
   }, [postTweetModal, text]);
-
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -94,11 +92,14 @@ const PostTweetModal = () => {
             <label htmlFor="img">
               <AiOutlinePicture size={30} />
             </label>
-            <input id="img" type="file"
+            <input
+              id="img"
+              type="file"
               accept=".jpg, .jpeg, .png, .mp4"
-              onChange={(e) => setImageFile(e.target.files![0])} hidden />
+              onChange={(e) => setImageFile(e.target.files![0])}
+              hidden
+            />
             {imageFile && `${imageFile.name} が選択されています...`}
-
           </div>
           <Button
             disabled={isLoading || (!text && !imageFile)}
@@ -110,8 +111,6 @@ const PostTweetModal = () => {
     </div>
   );
 
-
-
   return (
     // FIXME: buttonDisableを指定できるのでハンドラを登録しなくても良いようにしたい
     <Modal
@@ -120,7 +119,7 @@ const PostTweetModal = () => {
       title="投稿"
       actionLabel="投稿する"
       onClose={postTweetModal.onClose}
-      onSubmit={() => { }}
+      onSubmit={() => {}}
       body={bodyContent}
       buttonDisable
     />

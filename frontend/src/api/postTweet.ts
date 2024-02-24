@@ -2,7 +2,7 @@ import { API_ROUTES, apiAxios } from "@/consts/api";
 import { csrfCookie } from ".";
 
 const postTweet = async (text?: string, file?: File): Promise<boolean> => {
-  console.dir(file)
+  console.dir(file);
   try {
     await csrfCookie();
     await apiAxios.post(API_ROUTES.POST_TWEET.PATH, {

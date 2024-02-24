@@ -40,9 +40,8 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 
       await postTweet(text, imageFile);
       toast.success("投稿しました。");
-      mutateTweets()
-      mutateTweet()
-
+      mutateTweets();
+      mutateTweet();
     } catch (error) {
       console.log(error);
       toast.error("投稿に失敗しました。");
@@ -104,11 +103,14 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
                 <label htmlFor="img">
                   <AiOutlinePicture size={20} />
                 </label>
-                <input id="img" type="file"
+                <input
+                  id="img"
+                  type="file"
                   accept=".jpg, .jpeg, .png, .mp4"
-                  onChange={(e) => setImageFile(e.target.files![0])} hidden />
+                  onChange={(e) => setImageFile(e.target.files![0])}
+                  hidden
+                />
                 {imageFile && `${imageFile.name} が選択されています...`}
-
               </div>
               <Button
                 disabled={isLoading || (!text && !imageFile)}
