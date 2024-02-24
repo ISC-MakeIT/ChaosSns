@@ -3,24 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tweet;
-use App\Models\User;
+use App\Models\NotificationType;
+use App\Repositories\Notification\Interface\NotificationRepositoryInterface;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
+use App\Repositories\User\Interface\UserRepositoryInterface;
+use Illuminate\Http\Request;
 
 class TweetActionController extends Controller
 {
-
-    private TweetRepositoryInterface $tweetActionRepo;
+    private UserRepositoryInterface $userRepo;
+    private TweetRepositoryInterface $tweetRepo;
+    private NotificationRepositoryInterface $notificationRepo;
 
     public function __construct(
-        TweetRepositoryInterface $tweetActionRepo,
+        UserRepositoryInterface $userRepo,
+        TweetRepositoryInterface $tweetRepo,
+        NotificationRepositoryInterface $notificationRepo
     ) {
-        $this->tweetActionRepo  = $tweetActionRepo;
+        $this->userRepo         = $userRepo;
+        $this->tweetRepo        = $tweetRepo;
+        $this->notificationRepo = $notificationRepo;
     }
 
-    public function toggleActionTweet(Tweet $tweet, User $user)
+    public function toggleActionTweet(Request $request, $id)
     {
-        $this->tweetActionRepo->toggleActionTweet($tweet, $user);
+        $tweet        = $this->tweetRepo->findOneById($id);
+        $loggedInUser = $this->userRepo->getLoggedInUser();
+
+        $actionTweet = $this->tweetRepo->toggleActionTweet($tweet, $loggedInUser);
+        if ($actionTweet) {
+            $this->notificationRepo->create(
+                $loggedInUser,
+                $tweet->user,
+                NotificationType::ACTIONED,
+                sprintf("%sはあなたを%sしました。", $loggedInUser->name, NotificationType::FOLLOWED->toJa())
+            );
+        }
 
         return response()->json(['message' => 'action tweet successful']);
     }

@@ -7,12 +7,24 @@ use App\Models\TweetAction;
 use App\Models\TweetKind;
 use App\Models\User;
 use App\Repositories\Tweet\Exceptions\FailedDeleteTweetException;
+use App\Repositories\Tweet\Exceptions\FailedGetTweetException;
 use App\Repositories\Tweet\Exceptions\FailedGetTweetsException;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 use Illuminate\Support\Collection;
 
 class TweetRepository implements TweetRepositoryInterface
 {
+    public function findOneById(int $tweetId): Tweet
+    {
+        $tweet = Tweet::with('user')->find($tweetId);
+
+        if (!$tweet) {
+            throw new FailedGetTweetException();
+        }
+
+        return $tweet;
+    }
+
     /**
      * @throws FailedGetTweetsException
      *

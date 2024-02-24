@@ -68,7 +68,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function findOneById(int $id): User
     {
-        $user = User::find($id);
+        $user = User::with('tweets')->where('id', $id)->first();
 
         if (!$user) {
             throw new FailedFindUserException();
@@ -99,7 +99,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getLoggedInUser(): User
     {
-        $user = User::find(auth()->id());
+        $user = User::with('tweets')->where('id', auth()->id())->first();;
 
         if (!$user) {
             throw new FailedFindUserException();
