@@ -53,6 +53,10 @@ export const API_ROUTES: { [name: string]: ApiRoute } = {
     PATH: "/api/tweets",
     METHOD: METHODS.GET,
   },
+  POST_TWEET: {
+    PATH: "/api/tweets",
+    METHOD: METHODS.POST,
+  },
 } as const;
 
 export const API_BASE_URL =
