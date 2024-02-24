@@ -20,7 +20,6 @@ const RegisterModal = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
   const [imageFile, setImageFile] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,7 +41,7 @@ const RegisterModal = () => {
     } finally {
       setIsLoading(false)
     }
-  }, [registerModal, email, password, username, name, imageFile])
+  }, [registerModal, email, password, name, imageFile])
 
   const onToggle = useCallback(() => {
     if (isLoading) {
@@ -69,20 +68,12 @@ const RegisterModal = () => {
       />
 
       <Input
-        placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)}
-        value={username}
-        disabled={isLoading}
-      />
-
-      <Input
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         disabled={isLoading}
         type="password"
       />
-
 
       <input type="file" onChange={(e) => setImageFile(e.target.files![0])} />
     </div>

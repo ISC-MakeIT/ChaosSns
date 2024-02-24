@@ -27,6 +27,11 @@ class NotificationRepository implements NotificationRepositoryInterface
         return $notifications;
     }
 
+    public function getNotReadNotificationsCountByUser(User $user): int
+    {
+        return Notification::where('to', $user->id)->count();
+    }
+
     public function create(User $logggedInUser, User $targetUser, NotificationType $notificationType, string $content): Notification
     {
         return Notification::create([

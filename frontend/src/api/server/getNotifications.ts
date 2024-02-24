@@ -1,5 +1,4 @@
 import { API_ROUTES, apiAxios } from "@/consts/api";
-import { csrfCookie } from "..";
 import { Notification } from "@/types/notification";
 import { headers } from "next/headers";
 
@@ -9,7 +8,6 @@ type ResponseData = {
 };
 
 const getNotifications = async (): Promise<Notification[]> => {
-    await csrfCookie();
     try {
         const headerList = headers();
         
