@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import useTweets from '@/hooks/useTweets';
-import TweetItem from '../atoms/TweetItem';
+import useTweets from "@/hooks/useTweets";
+import TweetItem from "../atoms/TweetItem";
 
 interface TweetFeedProps {
   userId?: string;
@@ -12,7 +12,7 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
 
   return (
     <>
-      {posts.map((post: Record<string, any>,) => (
+      {posts.map((post: Record<string, any>) => (
         <TweetItem userId={userId} key={post.id} data={post} />
       ))}
     </>

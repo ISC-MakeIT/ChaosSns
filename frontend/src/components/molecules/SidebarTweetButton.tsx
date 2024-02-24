@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { FaFeather } from "react-icons/fa";
 import { SidebarTweetText } from "../atoms/SidebarTweetText";
@@ -10,7 +10,7 @@ export const SidebarTweetButton = () => {
 
   const onClick = useCallback(() => {
     loginModal.onOpen();
-  }, [loginModal])
+  }, [loginModal]);
 
   return (
     <div onClick={onClick}>

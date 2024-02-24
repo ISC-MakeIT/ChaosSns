@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { User } from "@/types/user";
 import Button from "../atoms/Button";
@@ -15,8 +15,8 @@ interface UserBioProps {
   isFollowing: boolean;
 }
 
-const UNFOLLOW = 'フォローを外す';
-const FOLLOW   = 'フォローする';
+const UNFOLLOW = "フォローを外す";
+const FOLLOW = "フォローする";
 
 const UserBio: React.FC<UserBioProps> = ({
   currentUserId,
@@ -24,48 +24,39 @@ const UserBio: React.FC<UserBioProps> = ({
   isFollowing,
 }) => {
   const [isFollowed, setIsFollowed] = useState<boolean>(isFollowing);
-  const [followLabel, setFollowLabel] = useState<string>(isFollowing ? UNFOLLOW : FOLLOW);
+  const [followLabel, setFollowLabel] = useState<string>(
+    isFollowing ? UNFOLLOW : FOLLOW,
+  );
   const editUserModal = useEditUserModal();
 
   const handleToggleFollow = () => {
     const actionSuccessful = followUser(user.id);
 
     if (!actionSuccessful) {
-      toast.error('フォローに失敗しました。')
+      toast.error("フォローに失敗しました。");
       return;
     }
     if (isFollowed) {
       setIsFollowed(false);
       setFollowLabel(FOLLOW);
-      toast.success('フォローを外しました。')
+      toast.success("フォローを外しました。");
       return;
     }
     setIsFollowed(true);
     setFollowLabel(UNFOLLOW);
-    toast.success('フォローをしました。')
-  }
-  
+    toast.success("フォローをしました。");
+  };
+
   const button =
     currentUserId === user.id ? (
-      <Button
-        secondary
-        onClick={editUserModal.onOpen}
-        label="編集"
-      />
+      <Button secondary onClick={editUserModal.onOpen} label="編集" />
     ) : (
-      <Button
-        secondary
-        onClick={handleToggleFollow}
-        label={followLabel}
-      />
+      <Button secondary onClick={handleToggleFollow} label={followLabel} />
     );
 
   return (
     <div className="border-b-[1px] border-neutral-800 pb-4">
-      <EditUserModal
-        oldDescription={user.description}
-        oldName={user.name}
-      />
+      <EditUserModal oldDescription={user.description} oldName={user.name} />
       <div className="flex justify-end p-2">{button}</div>
       <div className="mt-8 px-4">
         <div className="flex flex-col">
