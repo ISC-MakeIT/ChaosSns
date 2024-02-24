@@ -60,12 +60,23 @@ class TweetController extends Controller
             $outputtedFileURL = $this->s3Repo->upload($outputtedFile);
         }
 
+        $SPAM_REPLY_COUNT = ;
+
         $tweet = $this->tweetRepo->create(
             $user->id,
             $request->validated('content'),
             TweetKind::BAD,
             $outputtedFileURL
         );
+
+        for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
+            $this->tweetRepo->create(
+                ,
+                $request->validated('content'),
+                TweetKind::BAD,
+                $outputtedFileURL
+            );
+        }
 
         return $tweet;
     }
