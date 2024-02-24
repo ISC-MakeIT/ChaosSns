@@ -90,6 +90,6 @@ class TweetController extends Controller
     {
         $this->tweetRepo->deleteTweet($id);
 
-        return redirect()->route('tweets')->with('message', 'ツイートを削除しました。');
+        return response()->json(['message' => 'delete tweet successful']);
     }
 }
