@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/self', [UserController::class, 'getLoggedInUser'])->name('users.self');
         Route::post('/logout', [UserController::class, 'logout'])->name('users.logout');
     });
+    Route::prefix('/tweets')->group(function () {
+        Route::post('/', [TweetController::class, 'create']);
+    });
 });
 
 Route::prefix('/tweets')->group(function () {
