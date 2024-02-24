@@ -1,3 +1,4 @@
+import { csrfCookie } from "@/api/server/csrfCookie";
 import { API_ROUTES, apiAxios } from "@/consts/api";
 import { User } from "@/types/user";
 import { headers } from "next/headers";
@@ -13,6 +14,7 @@ const useCurrentUser = async (): Promise<ResponseData | undefined> => {
   try {
     const headerList = headers();
 
+    await csrfCookie(headerList);
     const response = await apiAxios.get<ResponseData>(
       API_ROUTES.GET_LOGGEDIN_USER.PATH,
       {

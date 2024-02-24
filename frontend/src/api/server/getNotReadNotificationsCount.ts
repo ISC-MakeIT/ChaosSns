@@ -1,18 +1,17 @@
-import { API_ROUTES, apiAxios } from "@/consts/api";
-import { Notification } from "@/types/notification";
 import { headers } from "next/headers";
+import { API_ROUTES, apiAxios } from "@/consts/api";
 
 type ResponseData = {
   message: string;
-  notifications: Notification[];
+  count: number;
 };
 
-const getNotifications = async (): Promise<Notification[]> => {
+const getNotReadNotificationsCount = async (): Promise<number> => {
   try {
     const headerList = headers();
 
     const response = await apiAxios.get<ResponseData>(
-      API_ROUTES.GET_NOTIFICATIONS.PATH,
+      API_ROUTES.GET_NOT_READ_NOTIFICATIONS_COUNT.PATH,
       {
         headers: {
           Cookie: headerList.get("Cookie") ?? "",
@@ -20,11 +19,11 @@ const getNotifications = async (): Promise<Notification[]> => {
         },
       },
     );
-    return response.data.notifications;
+    return response.data.count;
   } catch (e) {
     console.error(e);
   }
-  return [];
+  return 0;
 };
 
-export default getNotifications;
+export default getNotReadNotificationsCount;

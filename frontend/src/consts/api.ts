@@ -49,6 +49,14 @@ export const API_ROUTES: { [name: string]: ApiRoute } = {
     PATH: "/api/notifications",
     METHOD: METHODS.GET,
   },
+  READ_ALL_NOTIFICATIONS: {
+    PATH: "/api/notifications/read_all",
+    METHOD: METHODS.POST,
+  },
+  GET_NOT_READ_NOTIFICATIONS_COUNT: {
+    PATH: "/api/notifications/not_read_count",
+    METHOD: METHODS.GET,
+  },
   GET_TWEETS: {
     PATH: "/api/tweets",
     METHOD: METHODS.GET,

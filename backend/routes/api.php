@@ -26,19 +26,19 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('/tweets')->group(function () {
         Route::post('/', [TweetController::class, 'create']);
+        Route::post('/action/{tweet}', [TweetActionController::class, 'toggleActionTweet']);
+        Route::delete('/{id}', [TweetController::class, 'deleteTweet']);
     });
 });
 
 Route::prefix('/tweets')->group(function () {
     Route::get('/', [TweetController::class, 'getTweets'])->name('tweets');
-
-    Route::delete('/{id}', [TweetController::class, 'deleteTweet']);
-
-    Route::get('/action/{tweet}', [TweetActionController::class, 'toggleActionTweet']);
 });
 
 Route::prefix('/notifications')->group(function () {
     Route::get('/', [NotificationController::class, 'getNotifications']);
+    Route::get('/not_read_count', [NotificationController::class, 'getNotReadNotificationsCount']);
+    Route::post('/read_all', [NotificationController::class, 'readAllNotifications']);
 });
 
 Route::prefix('/users')->group(function () {

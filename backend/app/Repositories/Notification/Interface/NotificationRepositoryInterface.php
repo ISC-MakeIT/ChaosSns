@@ -20,4 +20,6 @@ interface NotificationRepositoryInterface
     public function create(User $logggedInUser, User $targetUser, NotificationType $notificationType, string $content): Notification;
 
     public function readNotificationsByUser(User $user): void;
+
+    public function getNotReadNotificationsCountByUser(User $user): int;
 }

@@ -4,9 +4,11 @@ import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
 import { TwitterLogo } from "../atoms/TwitterLogo";
 import SidebarLogout from "../molecules/SidebarLogout";
 import useCurrentUser from "@/hooks/server/useCurrentUser";
+import getNotReadNotificationsCount from "@/api/server/getNotReadNotificationsCount";
 
 export const Sidebar = async () => {
   const response = await useCurrentUser();
+  const notificationCount = await getNotReadNotificationsCount();
 
   const items = [
     {
@@ -14,19 +16,26 @@ export const Sidebar = async () => {
       href: "/",
       icon: AiOutlineHome,
     },
-    {
-      label: "通知",
-      href: "/notifications",
-      icon: AiOutlineBell,
-    },
   ];
 
   if (response) {
-    items.push({
-      label: "プロフィール",
-      href: `/users/${response.user.id}`,
-      icon: AiOutlineUser,
-    });
+    let notificationsLabel = "通知";
+    if (notificationCount !== 0) {
+      notificationsLabel = `通知 ${notificationCount}件`;
+    }
+
+    items.push(
+      {
+        label: notificationsLabel,
+        href: "/notifications",
+        icon: AiOutlineBell,
+      },
+      {
+        label: "プロフィール",
+        href: `/users/${response.user.id}`,
+        icon: AiOutlineUser,
+      },
+    );
   }
 
   const sideItems = items.map((item) => {
