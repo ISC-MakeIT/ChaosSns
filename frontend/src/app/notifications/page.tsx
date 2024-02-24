@@ -5,7 +5,7 @@ import Client from "./client";
 
 export default async function Index() {
   const notifications = await getNotifications();
-  
+
   return (
     <div>
       <Client />
