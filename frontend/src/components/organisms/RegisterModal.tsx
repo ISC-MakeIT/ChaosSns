@@ -1,9 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
-// import { signin } from 'next-auth/react';
 
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";

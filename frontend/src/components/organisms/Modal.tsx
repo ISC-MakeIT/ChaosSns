@@ -11,6 +11,7 @@ interface ModalProps {
   footer?: React.ReactElement;
   actionLabel: string;
   disabled?: boolean;
+  buttonDisable?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   footer,
   actionLabel,
   disabled,
+  buttonDisable
 }) => {
   const handleClose = useCallback(() => {
     if (disabled) {
@@ -115,7 +117,7 @@ const Modal: React.FC<ModalProps> = ({
           <div className="relative p-10 flex-auto">{body}</div>
           {/* Footer */}
           <div className="flex flex-col gap-2 p-10">
-            <Button
+            {!buttonDisable && <Button
               disabled={disabled}
               label={actionLabel}
               secondary
@@ -123,6 +125,7 @@ const Modal: React.FC<ModalProps> = ({
               large
               onClick={handleSubmit}
             />
+            }
             {footer}
           </div>
         </div>
