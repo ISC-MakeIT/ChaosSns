@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Tweet\CreateTweetRequest;
+use App\Models\SpamUser;
 use App\Models\TweetKind;
 use App\Repositories\Encoder\Interface\EncoderRepositoryInterface;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\File;
 
 class TweetController extends Controller
 {
+    use WithFaker;
+
     private TweetRepositoryInterface $tweetRepo;
     private UserRepositoryInterface $userRepo;
 
@@ -60,12 +64,24 @@ class TweetController extends Controller
             $outputtedFileURL = $this->s3Repo->upload($outputtedFile);
         }
 
+        $SPAM_REPLY_COUNT = 10;
+
         $tweet = $this->tweetRepo->create(
             $user->id,
             $request->validated('content'),
             TweetKind::BAD,
-            $outputtedFileURL
+            $outputtedFileURL,
+            $request->validated('reply_to')
         );
+
+        for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
+            $this->tweetRepo->create(
+                SpamUser::inRandomOrder()->first()->user_id,
+                $this->faker('ar_SA')->word(),
+                TweetKind::BAD,
+                $outputtedFileURL
+            );
+        }
 
         return $tweet;
     }
