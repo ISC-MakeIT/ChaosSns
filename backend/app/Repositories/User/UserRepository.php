@@ -33,6 +33,18 @@ class UserRepository implements UserRepositoryInterface
         }
     }
 
+
+    public function findOneById(int $id): User
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new FailedFindUserException();
+        }
+
+        return $user;
+    }
+
     /**
      * @throws FailedLoginException
      *
