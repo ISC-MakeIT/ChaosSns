@@ -33,6 +33,12 @@ class UserRepository implements UserRepositoryInterface
         }
     }
 
+    public function update(User $user): User
+    {
+        $user->save();
+        return $user;
+    }
+
     public function findOneById(int $id): User
     {
         $user = User::find($id);

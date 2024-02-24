@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Http\File;
@@ -45,6 +46,25 @@ class UserController extends Controller
 
             return response()->json(['message' => 'create user successful']);
         });
+    }
+
+    /**
+     * @param UpdateUserRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function update(UpdateUserRequest $request): JsonResponse
+    {
+        $user = $this->userRepo->getLoggedInUser();
+        $user->name        = $request->validated('name');
+        $user->description = $request->validated('description');
+
+        $updatedUser = $this->userRepo->update($user);
+
+        return response()->json([
+            'message' => 'update user successful',
+            'user'    => $updatedUser->toArrayForLoggedInUser()
+        ]);
     }
 
     public function find(Request $request ,$id)
