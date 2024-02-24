@@ -9,12 +9,13 @@ use Illuminate\Support\Collection;
 
 interface TweetRepositoryInterface
 {
+    public function findOneById(int $tweetId): Tweet;
+
     /**
      * すべてのユーザーのツイート取得
      *
      * @return Collection
      */
-
     public function getTweets(): Collection;
 
     public function create(
@@ -31,6 +32,6 @@ interface TweetRepositoryInterface
      * @return Collection
      */
     public function deleteTweet($id);
-    
+
     public function toggleActionTweet(Tweet $tweet, User $user): bool;
 }
