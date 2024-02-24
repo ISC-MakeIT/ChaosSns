@@ -11,12 +11,14 @@ import Button from "../atoms/Button";
 import Avatar from "../atoms/Avatar";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import postTweet from "@/api/postTweet";
+import useTweets from "@/hooks/useTweets";
 
 
 const PostTweetModal = () => {
   const postTweetModal = usePostTweetModal();
 
   const { data: currentUser } = useCurrentUser();
+  const { mutate: mutateTweets } = useTweets();
 
   const [text, setText] = useState("");
   const [imageFile, setImageFile] = useState<File>();
@@ -27,10 +29,9 @@ const PostTweetModal = () => {
     try {
       setIsLoading(true);
 
-      // TODO: ツイート投稿処理
-      // await signin(email, password);
       await postTweet(text, imageFile);
       toast.success("投稿しました。");
+      mutateTweets()
 
       postTweetModal.onClose();
     } catch (error) {
@@ -78,9 +79,6 @@ const PostTweetModal = () => {
         />
 
         <div className="mt-4 flex flex-row justify-between">
-
-          {/*<input type="file" onChange={(e) => setImageFile(e.target.files![0])} /> */}
-
           <div
             className="
             flex 
