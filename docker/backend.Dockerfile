@@ -22,6 +22,7 @@ RUN apt-get -y update && apt-get --no-install-recommends install -y \
     libonig-dev \
     curl \
     gnupg \
+    ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 # PHP

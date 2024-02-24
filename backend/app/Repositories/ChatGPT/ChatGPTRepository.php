@@ -5,6 +5,7 @@ namespace App\Repositories\ChatGPT;
 use App\Repositories\ChatGPT\Interface\ChatGPTRepositoryInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Str;
 
 class ChatGPTRepository implements ChatGPTRepositoryInterface
@@ -33,8 +34,23 @@ class ChatGPTRepository implements ChatGPTRepositoryInterface
                     'size'   => '1024x1024',
                 ]
             ]
+        )
+        ->getBody()
+        ->getContents();
+
+        $content = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
+        $strRandom       = Str::random();
+        $filepath        = "/tmp/{$strRandom}.png";
+        $outputFilepath  = "/tmp/{$strRandom}.jpeg";
+
+        file_put_contents(
+            $filepath,
+            file_get_contents($content['data'][0]['url']),
         );
 
-        return new File();
+        Process::run("ffmpeg -i {$filepath} {$outputFilepath}");
+
+        return new File($outputFilepath);
     }
 }
