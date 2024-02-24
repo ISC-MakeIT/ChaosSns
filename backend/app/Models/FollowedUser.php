@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
+class FollowedUser extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'from',
-        'to',
-        'type',
-        'content',
-        'is_read'
+        'owner',
+        'target',
     ];
 }

@@ -1,9 +1,5 @@
+import { Notification } from "@/types/notification";
 import NotificationItem from "../molecules/NotificationItem";
-
-interface Notification {
-    id: string;
-    content: string;
-}
 
 interface NotificationItemListProps {
     notifications: Notification[];

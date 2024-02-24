@@ -2,9 +2,11 @@
 
 namespace App\Repositories\User;
 
+use App\Models\FollowedUser;
 use App\Models\User;
 use App\Repositories\User\Exceptions\FailedCreateUserException;
 use App\Repositories\User\Exceptions\FailedFindUserException;
+use App\Repositories\User\Exceptions\FailedFollowException;
 use App\Repositories\User\Exceptions\FailedLoginException;
 use App\Repositories\User\Exceptions\FailedLogoutException;
 use App\Repositories\User\Interface\UserRepositoryInterface;
@@ -29,6 +31,7 @@ class UserRepository implements UserRepositoryInterface
                 'icon'        => $iconURL,
             ]);
         } catch (Throwable $e) {
+            logs()->error($e);
             throw new FailedCreateUserException();
         }
     }
@@ -36,7 +39,31 @@ class UserRepository implements UserRepositoryInterface
     public function update(User $user): User
     {
         $user->save();
+
         return $user;
+    }
+
+    public function toggleFollow(User $loggedInUser, User $target): bool
+    {
+        try {
+            $followedUser = FollowedUser::where('owner', $loggedInUser->id)
+                ->where('target', $target->id)
+                ->first();
+
+            if (!$followedUser) {
+                FollowedUser::create([
+                    'owner'  => $loggedInUser->id,
+                    'target' => $target->id
+                ]);
+                return true;
+            }
+
+            $followedUser->delete();
+            return false;
+        } catch (Throwable $e) {
+            logs()->error($e);
+            throw new FailedFollowException();
+        }
     }
 
     public function findOneById(int $id): User
@@ -81,6 +108,15 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public function isFollowing(User $loggedInUser, User $target): bool
+    {
+        $followedUser = FollowedUser::where('owner', $loggedInUser->id)
+            ->where('target', $target->id)
+            ->first();
+
+        return $followedUser !== null;
+    }
+
     public function login(User $user): void
     {
         try {
@@ -94,7 +130,7 @@ class UserRepository implements UserRepositoryInterface
     public function logout(): void
     {
         try {
-            auth()->logout();
+            session()->flush();
         } catch (Throwable $e) {
             throw new FailedLogoutException();
         }

@@ -23,7 +23,7 @@ const LoginModal = () => {
       await signin(email, password)
       toast.success('ログインしました。')
 
-      loginModal.onClose();
+      location.reload();
     } catch (error) {
       console.log(error)
     } finally {

@@ -24,6 +24,6 @@ class Handler extends ExceptionHandler
             return response($e->getResponseJson(), $e->getStatusCode());
         }
         logs()->error($e);
-        return response(['message' => 'error'], 500);
+        return parent::render($request, $e);
     }
 }

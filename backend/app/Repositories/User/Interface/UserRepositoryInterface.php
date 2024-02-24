@@ -10,11 +10,15 @@ interface UserRepositoryInterface
 
     public function update(User $user): User;
 
+    public function toggleFollow(User $loggedInUser, User $target): bool;
+
     public function findOneById(int $id): User;
 
     public function findOneByAuth(string $email, string $password): User;
 
     public function getLoggedInUser(): User;
+
+    public function isFollowing(User $loggedInUser, User $target): bool;
 
     public function login(User $user): void;
 

@@ -32,6 +32,22 @@ export const API_ROUTES: {[name: string]: ApiRoute} = {
     LOGOUT: {
         PATH: "/api/users/logout",
         METHOD: METHODS.POST,
+    },
+    UPDATE_USER: {
+        PATH: '/api/users',
+        METHOD: METHODS.PUT,
+    },
+    GET_USER: {
+        PATH: '/api/users/',
+        METHOD: METHODS.GET,
+    },
+    FOLLOW_USER: {
+        PATH: '/api/users/follow/',
+        METHOD: METHODS.POST,
+    },
+    GET_NOTIFICATIONS: {
+        PATH: '/api/notifications',
+        METHOD: METHODS.GET,
     }
 } as const;
 
@@ -41,5 +57,5 @@ export const apiAxios = axios.create({
   baseURL: API_BASE_URL,
   timeout: 1000,
   withCredentials: true,
-  withXSRFToken: true 
+  withXSRFToken: true,
 });

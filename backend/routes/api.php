@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/users')->group(function () {
         Route::get('/self', [UserController::class, 'getLoggedInUser'])->name('users.self');
+        Route::put('/', [UserController::class, 'update'])->name('users.update');
         Route::post('/logout', [UserController::class, 'logout'])->name('users.logout');
+        Route::post('/follow/{id}', [UserController::class, 'follow'])->name('users.follow');
     });
     Route::prefix('/tweets')->group(function () {
         Route::post('/', [TweetController::class, 'create']);
