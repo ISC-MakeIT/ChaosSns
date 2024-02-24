@@ -44,6 +44,15 @@ class UserController extends Controller
         });
     }
 
+    public function show($id)
+    {
+        $user = $this->userRepo->find($id);
+        if(!$user){
+            return response()->json(['message' => 'user not found'], 404);
+        }
+        return response()->json($user);
+    }
+
     /**
      * @param LoginRequest $request
      *
