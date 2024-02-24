@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::prefix('/tweets')->group(function () {
     Route::get('/', [TweetController::class, 'getTweets'])->name('tweets');
 
-    Route::delete('/delete/{tweet}', [TweetController::class, 'deleteTweet']);
+    Route::delete('/{id}', [TweetController::class, 'deleteTweet']);
 });
 
 Route::prefix('/notifications')->group(function () {
