@@ -115,7 +115,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
               <Button
                 disabled={isLoading || (!text && !imageFile)}
                 onClick={onSubmit}
-                label="Tweet"
+                label="ツイート"
               />
             </div>
           </div>
@@ -123,11 +123,11 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       ) : (
         <div className="py-8">
           <h1 className="text-white text-2xl text-center mb-4 font-bold">
-            Welcome to Twitter
+            うるさいSNSへようこそ!!!
           </h1>
           <div className="flex flex-row items-center justify-center gap-4">
-            <Button label="Login" onClick={loginModal.onOpen} />
-            <Button label="Register" onClick={registerModal.onOpen} secondary />
+            <Button label="ログイン" onClick={loginModal.onOpen} />
+            <Button label="新規登録" onClick={registerModal.onOpen} secondary />
           </div>
         </div>
       )}

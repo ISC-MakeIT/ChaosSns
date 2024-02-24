@@ -104,7 +104,7 @@ const PostTweetModal = () => {
           <Button
             disabled={isLoading || (!text && !imageFile)}
             onClick={onSubmit}
-            label="Tweet"
+            label="ツイート"
           />
         </div>
       </div>
