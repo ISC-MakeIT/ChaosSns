@@ -49,7 +49,8 @@ class UserController extends Controller
 
     public function find(Request $request ,$id)
     {
-        $user = $this->userRepo->findOneById($id);
+        $user = $this->userRepo->findOneById(intval($id));
+
         if(!$user){
             return response()->json(['message' => 'user not found'], 404);
         }
@@ -64,10 +65,12 @@ class UserController extends Controller
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        $this->userRepo->findOneByAuth(
+        $user = $this->userRepo->findOneByAuth(
             $request->validated('email'),
             $request->validated('password'),
         );
+
+        $this->userRepo->login($user);
 
         return response()->json(['message' => 'login successful']);
     }
@@ -75,7 +78,7 @@ class UserController extends Controller
     /**
      * @return JsonResponse
      */
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
         $this->userRepo->logout();
 
