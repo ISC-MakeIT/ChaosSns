@@ -83,7 +83,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     >
       <div className="flex flex-row items-start gap-3">
         <div>
-          <Avatar userId={data.id} />
+          <Avatar userId={data.id} icon={currentUser?.user.icon} />
         </div>
         <div>
           <div className="flex flex-row items-center gap-2">

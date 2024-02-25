@@ -6,11 +6,12 @@ import { useCallback } from "react";
 
 interface AvatarProps {
   userId: string;
+  icon?: string;
   isLarge?: boolean;
   hasBorder?: boolean;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
+const Avatar: React.FC<AvatarProps> = ({ userId, icon, isLarge, hasBorder }) => {
   const router = useRouter();
 
   // const { data: fetchedUser } = useUser(userId);
@@ -48,7 +49,7 @@ const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
         alt="Avatar"
         onClick={onClick}
         // src={fetchedUser?.profileImage || '/images/placeholder.png'}
-        src={"/images/placeholder.png"}
+        src={icon || "/images/placeholder.png" }
       />
     </div>
   );
