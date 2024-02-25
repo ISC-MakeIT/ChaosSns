@@ -43,7 +43,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       mutateTweets();
       mutateTweet();
 
-      setText('');
+      setText("");
       setImageFile(undefined);
     } catch (error) {
       console.log(error);

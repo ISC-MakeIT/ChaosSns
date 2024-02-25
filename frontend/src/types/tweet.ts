@@ -1,5 +1,4 @@
 export interface Tweet {
-    id: number;
-    content: string;
+  id: number;
+  content: string;
 }
-  

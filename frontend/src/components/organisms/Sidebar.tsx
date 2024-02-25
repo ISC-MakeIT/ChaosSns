@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import SidebarItem from "../molecules/SidebarItem";
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";

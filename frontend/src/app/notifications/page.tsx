@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import getNotifications from "@/api/server/getNotifications";
 import Header from "@/components/organisms/Header";
@@ -17,5 +17,5 @@ export default function Index() {
       </div>
     );
   }
-  return <></>
+  return <></>;
 }

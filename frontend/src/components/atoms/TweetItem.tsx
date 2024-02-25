@@ -53,16 +53,22 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data.createdAt]);
 
-  const fileTag = function() {
-    if (data.file_type === 'video') {
-      return <video controls src={data.file} onLoadStart={(e) => e.currentTarget.volume = 0.1} />
+  const fileTag = (function () {
+    if (data.file_type === "video") {
+      return (
+        <video
+          controls
+          src={data.file}
+          onLoadStart={(e) => (e.currentTarget.volume = 0.1)}
+        />
+      );
     }
-    if (data.file_type === 'image') {
-      return <img src={data.file} alt='ツイートの画像' loading="lazy" />
+    if (data.file_type === "image") {
+      return <img src={data.file} alt="ツイートの画像" loading="lazy" />;
     }
-    return <></>
-  }();
-  
+    return <></>;
+  })();
+
   return (
     <div
       onClick={goToPost}

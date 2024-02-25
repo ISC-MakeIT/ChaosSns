@@ -7,5 +7,5 @@ export interface User {
   icon: string;
   created_at: string;
   updated_at: string;
-  tweets: Tweet[],
+  tweets: Tweet[];
 }

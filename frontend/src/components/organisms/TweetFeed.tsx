@@ -12,11 +12,9 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
 
   return (
     <>
-      {posts
-        .map((post: Record<string, any>) => (
-          <TweetItem userId={userId} key={post.id} data={post} />
-        ))
-      }
+      {posts.map((post: Record<string, any>) => (
+        <TweetItem userId={userId} key={post.id} data={post} />
+      ))}
     </>
   );
 };
