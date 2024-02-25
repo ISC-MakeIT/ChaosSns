@@ -14,7 +14,7 @@ const fetcher = async (url: string) => {
 };
 
 const getNotifications = () => {
-  const { data, error, isLoading, mutate } = useSWR<ResponseData>(
+  const { data, error, isLoading, mutate } = useSWR<ResponseData>( // eslint-disable-line
     API_ROUTES.GET_NOTIFICATIONS.PATH,
     fetcher,
   );
