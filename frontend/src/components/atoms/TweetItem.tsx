@@ -53,7 +53,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data.createdAt]);
 
-  const fileTag = (function() {
+  const fileTag = (function () {
     if (data.file_type === "video") {
       return (
         <video
@@ -70,20 +70,25 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
   })();
 
   const generateContent = () => {
-    const num = Math.floor(Math.random() * 3)
+    const num = Math.floor(Math.random() * 3);
 
     switch (num) {
       case 1:
-        return (<div className="mt-1">{data.content}</div>
-        )
+        return <div className="mt-1">{data.content}</div>;
       case 2:
-        return (<div className="text-white mt-1 animate-[hurueru_.1s_infinite]">{data.content}</div>
-        )
+        return (
+          <div className="text-white mt-1 animate-[hurueru_.1s_infinite]">
+            {data.content}
+          </div>
+        );
       default:
-        return (<div className="text-white mt-1 animate-[rotate_1s_linear_infinite]">{data.content}</div>
-        )
+        return (
+          <div className="text-white mt-1 animate-[rotate_1s_linear_infinite]">
+            {data.content}
+          </div>
+        );
     }
-  }
+  };
 
   return (
     <div
@@ -128,9 +133,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
             </span>
             <span className="text-neutral-500 text-sm">{createdAt}</span>
           </div>
-          {
-            generateContent()
-          }
+          {generateContent()}
           <div className="flex flex-row items-center mt-3 mb-3 gap-10">
             <div
               className="
