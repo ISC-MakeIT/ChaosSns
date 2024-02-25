@@ -8,13 +8,9 @@ interface UserRepositoryInterface
 {
     public function create(string $email, string $description, string $password, string $name, string $iconURL): User;
 
-
-    public function findOneById(int $id): User;
-
     public function editUserIcon(int $id, string $iconURL): User;
-  
-    public function update(User $user): User;
 
+    public function update(User $user): User;
 
     public function toggleFollow(User $loggedInUser, User $target): bool;
 
