@@ -92,7 +92,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
 
   return (
     <div
-      onClick={goToPost}
+      // onClick={goToPost}
       className="
         border-b-[1px] 
         border-neutral-800 
@@ -129,7 +129,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 md:block
             "
             >
-              @{data.user_id}
+              @{data.name}
             </span>
             <span className="text-neutral-500 text-sm">{createdAt}</span>
           </div>
