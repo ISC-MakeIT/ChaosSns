@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/users')->group(function () {
     Route::post('/', [UserController::class, 'create'])->name('users.registration');
     Route::post('/login', [UserController::class, 'login'])->name('users.login');
+    Route::put('/icon/{id}', [UserController::class, 'editUserIcon'])->name('users.editUserIcon');
     Route::get('/{id}', [UserController::class, 'find'])->name('users.find');
-    Route::put('/{id}/icon', [UserController::class, 'editUserIcon'])->name('users.editUserIcon');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
