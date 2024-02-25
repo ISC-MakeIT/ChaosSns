@@ -7,9 +7,9 @@ const fetcher = async (url: string) => {
   return (await apiAxios.get(url)).data;
 };
 
-function useTweet(postId: string) {
+function useTweet(tweetId: string) {
   const { data, error, isLoading, mutate } = useSWR(
-    postId ? `/api/posts/${postId}` : null,
+    tweetId ? `/api/tweets/${tweetId}` : null,
     fetcher,
   );
   // FIXME: endpoint

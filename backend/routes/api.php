@@ -33,6 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::prefix('/tweets')->group(function () {
     Route::get('/', [TweetController::class, 'getTweets'])->name('tweets');
+
+    Route::get('/{id}', [TweetController::class, 'getTweet'])->name('tweets');
 });
 
 Route::prefix('/notifications')->group(function () {

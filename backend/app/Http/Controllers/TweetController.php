@@ -47,6 +47,8 @@ class TweetController extends Controller
     public function getTweet(Request $request, $id)
     {
         $tweet = $this->tweetRepo->findOneById($id);
+
+        return $tweet;
     }
 
     public function create(CreateTweetRequest $request)
