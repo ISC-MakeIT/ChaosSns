@@ -30,8 +30,8 @@ class TweetActionController extends Controller
         $tweet        = $this->tweetRepo->findOneById($id);
         $loggedInUser = $this->userRepo->getLoggedInUser();
 
-        $actionTweet = $this->tweetRepo->toggleActionTweet($tweet, $loggedInUser);
-        if ($actionTweet) {
+        $isActionedTweet = $this->tweetRepo->toggleActionTweet($tweet, $loggedInUser);
+        if ($isActionedTweet) {
             $this->notificationRepo->create(
                 $loggedInUser,
                 $tweet->user,

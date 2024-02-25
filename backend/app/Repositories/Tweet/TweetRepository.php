@@ -17,7 +17,7 @@ class TweetRepository implements TweetRepositoryInterface
 {
     public function findOneById(int $tweetId): Tweet
     {
-        $tweet = Tweet::with('user')->find($tweetId);
+        $tweet = Tweet::with(['user', 'tweets'])->find($tweetId);
 
         if (!$tweet) {
             throw new FailedGetTweetException();

@@ -13,6 +13,7 @@ use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\File;
+use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
@@ -41,6 +42,11 @@ class TweetController extends Controller
         $tweets = $this->tweetRepo->getTweets();
 
         return $tweets;
+    }
+
+    public function getTweet(Request $request, $id)
+    {
+        $tweet = $this->tweetRepo->findOneById($id);
     }
 
     public function create(CreateTweetRequest $request)
