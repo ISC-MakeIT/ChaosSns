@@ -13,7 +13,8 @@ const fetcher = async (url: string) => {
 };
 
 const getNotReadNotificationsCount = async () => {
-  const { data, error, isLoading, mutate } = useSWR( // eslint-disable-line
+  const { data, error, isLoading, mutate } = useSWR(
+    // eslint-disable-line
     API_ROUTES.GET_NOT_READ_NOTIFICATIONS_COUNT.PATH,
     fetcher,
   );

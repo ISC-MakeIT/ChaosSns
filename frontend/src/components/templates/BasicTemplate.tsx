@@ -13,7 +13,7 @@ export const BasicTemplate: React.FC<LayoutProps> = async ({ children }) => {
   return (
     <>
       <html>
-        <body>
+        <body className="animate-[rainbow_1s_infinite]">
           <RegisterModal />
           <LoginModal />
           <Toaster />

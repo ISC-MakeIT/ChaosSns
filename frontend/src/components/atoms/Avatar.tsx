@@ -11,7 +11,12 @@ interface AvatarProps {
   hasBorder?: boolean;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ userId, icon, isLarge, hasBorder }) => {
+const Avatar: React.FC<AvatarProps> = ({
+  userId,
+  icon,
+  isLarge,
+  hasBorder,
+}) => {
   const router = useRouter();
 
   // const { data: fetchedUser } = useUser(userId);
@@ -49,7 +54,7 @@ const Avatar: React.FC<AvatarProps> = ({ userId, icon, isLarge, hasBorder }) => 
         alt="Avatar"
         onClick={onClick}
         // src={fetchedUser?.profileImage || '/images/placeholder.png'}
-        src={icon || "/images/placeholder.png" }
+        src={icon || "/images/placeholder.png"}
       />
     </div>
   );
