@@ -4,6 +4,7 @@ namespace App\Repositories\Tweet;
 
 use App\Models\Tweet;
 use App\Models\TweetAction;
+use App\Models\TweetFileType;
 use App\Models\TweetKind;
 use App\Models\User;
 use App\Repositories\Tweet\Exceptions\FailedDeleteTweetException;
@@ -32,7 +33,7 @@ class TweetRepository implements TweetRepositoryInterface
      */
     public function getTweets(): Collection
     {
-        $tweets = Tweet::get();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
 
         if (!$tweets) {
             throw new FailedGetTweetsException();
@@ -46,14 +47,16 @@ class TweetRepository implements TweetRepositoryInterface
         string $content,
         TweetKind $tweetKind,
         ?string $file = null,
+        ?TweetFileType $tweetFileType = TweetFileType::EMPTY,
         ?int $replyTo = null,
     ): Tweet {
         return Tweet::create([
-            'user_id'  => $owner,
-            'content'  => $content,
-            'type'     => $tweetKind->toString(),
-            'file'     => $file,
-            'reply_to' => $replyTo
+            'user_id'   => $owner,
+            'content'   => $content,
+            'type'      => $tweetKind->toString(),
+            'file'      => $file,
+            'file_type' => $tweetFileType->toString(),
+            'reply_to'  => $replyTo
         ]);
     }
     /**

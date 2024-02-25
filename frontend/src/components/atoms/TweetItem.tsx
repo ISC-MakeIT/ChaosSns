@@ -8,6 +8,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 // import useLike from '@/hooks/useLike';
 
 import Avatar from "../atoms/Avatar";
+import Image from "next/image";
 interface PostItemProps {
   data: Record<string, any>;
   userId?: string;
@@ -52,6 +53,16 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data.createdAt]);
 
+  const fileTag = function() {
+    if (data.file_type === 'video') {
+      return <video controls src={data.file} onLoadStart={(e) => e.currentTarget.volume = 0.1} />
+    }
+    if (data.file_type === 'image') {
+      return <img src={data.file} alt='ツイートの画像' loading="lazy" />
+    }
+    return <></>
+  }();
+  
   return (
     <div
       onClick={goToPost}
@@ -96,7 +107,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
             <span className="text-neutral-500 text-sm">{createdAt}</span>
           </div>
           <div className="text-white mt-1">{data.content}</div>
-          <div className="flex flex-row items-center mt-3 gap-10">
+          <div className="flex flex-row items-center mt-3 mb-3 gap-10">
             <div
               className="
                 flex 
@@ -132,6 +143,7 @@ const TweetItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
               */}
             </div>
           </div>
+          {fileTag}
         </div>
       </div>
     </div>

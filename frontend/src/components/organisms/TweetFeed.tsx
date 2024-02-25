@@ -16,7 +16,7 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
         .map((post: Record<string, any>) => (
           <TweetItem userId={userId} key={post.id} data={post} />
         ))
-        .reverse()}
+      }
     </>
   );
 };

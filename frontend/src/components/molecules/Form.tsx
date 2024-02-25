@@ -42,6 +42,9 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       toast.success("投稿しました。");
       mutateTweets();
       mutateTweet();
+
+      setText('');
+      setImageFile(undefined);
     } catch (error) {
       console.log(error);
       toast.error("投稿に失敗しました。");

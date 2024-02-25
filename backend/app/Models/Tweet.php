@@ -14,6 +14,7 @@ class Tweet extends Model
         'user_id',
         'content',
         'file',
+        'file_type',
         'reply_to',
     ];
 

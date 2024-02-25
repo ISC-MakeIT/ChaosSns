@@ -8,6 +8,7 @@ use App\Models\TweetKind;
 use App\Repositories\Encoder\Interface\EncoderRepositoryInterface;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Models\Tweet;
+use App\Models\TweetFileType;
 use App\Repositories\Tweet\Interface\TweetRepositoryInterface;
 use App\Repositories\User\Interface\UserRepositoryInterface;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -52,13 +53,19 @@ class TweetController extends Controller
         /** @var string */
         $outputtedFileURL = null;
 
+        /** @var TweetFileType */
+        $tweetFileType = TweetFileType::EMPTY;
+
         if ($request->has('video')) {
             $outputtedFile = $this->encoderRepo->videoToFuckingShitQuality(
                 new File($request->file('video')->getPathname())
             );
+            $tweetFileType = TweetFileType::VIDEO;
         }
         if ($request->has('image')) {
             // TODO: image to gaming image :D
+            $outputtedFile = new File($request->file('image')->getPathname());
+            $tweetFileType = TweetFileType::IMAGE;
         }
 
         if ($outputtedFile) {
@@ -72,18 +79,19 @@ class TweetController extends Controller
             $request->validated('content'),
             TweetKind::BAD,
             $outputtedFileURL,
+            $tweetFileType,
             $request->validated('reply_to')
         );
 
         // FIXME: エラーが起きてしまうのでいったん無効化
-        // for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
-        //     $this->tweetRepo->create(
-        //         SpamUser::inRandomOrder()->first()->user_id,
-        //         $this->faker('ar_SA')->word(),
-        //         TweetKind::BAD,
-        //         $outputtedFileURL
-        //     );
-        // }
+        for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
+            // $this->tweetRepo->create(
+            //     SpamUser::inRandomOrder()->first()->user_id,
+            //     $this->faker('ar_SA')->word(),
+            //     TweetKind::BAD,
+            //     $outputtedFileURL
+            // );
+        }
 
         return $tweet;
     }

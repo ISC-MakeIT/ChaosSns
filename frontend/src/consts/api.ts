@@ -72,7 +72,7 @@ export const API_BASE_URL =
 
 export const apiAxios = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 1000,
+  timeout: 10000,
   withCredentials: true,
   withXSRFToken: true,
 });
