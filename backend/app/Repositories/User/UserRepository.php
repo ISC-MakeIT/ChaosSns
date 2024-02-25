@@ -46,7 +46,7 @@ class UserRepository implements UserRepositoryInterface
     }
 
 
-    public function EdituserIcon(int $id, string $iconURL): User
+    public function editUserIcon(int $id, string $iconURL): User
     {
         $user = User::find($id);
 

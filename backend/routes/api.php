@@ -20,7 +20,7 @@ Route::prefix('/users')->group(function () {
     Route::post('/', [UserController::class, 'create'])->name('users.registration');
     Route::post('/login', [UserController::class, 'login'])->name('users.login');
     Route::get('/{id}', [UserController::class, 'find'])->name('users.find');
-    Route::put('/{id}/icon', [UserController::class, 'Edit_Icon'])->name('users.Edit_Icon');
+    Route::put('/{id}/icon', [UserController::class, 'EditUserIcon'])->name('users.EditUserIcon');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
