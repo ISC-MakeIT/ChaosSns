@@ -12,8 +12,8 @@ interface LayoutProps {
 export const BasicTemplate: React.FC<LayoutProps> = async ({ children }) => {
   return (
     <>
-      <html>
-        <body>
+      <html >
+        <body className="animate-[rainbow_1s_infinite]" >
           <RegisterModal />
           <LoginModal />
           <Toaster />
