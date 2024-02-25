@@ -75,14 +75,15 @@ class TweetController extends Controller
             $request->validated('reply_to')
         );
 
-        for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
-            $this->tweetRepo->create(
-                SpamUser::inRandomOrder()->first()->user_id,
-                $this->faker('ar_SA')->word(),
-                TweetKind::BAD,
-                $outputtedFileURL
-            );
-        }
+        // FIXME: エラーが起きてしまうのでいったん無効化
+        // for ($i = 0; $i < $SPAM_REPLY_COUNT; $i++) {
+        //     $this->tweetRepo->create(
+        //         SpamUser::inRandomOrder()->first()->user_id,
+        //         $this->faker('ar_SA')->word(),
+        //         TweetKind::BAD,
+        //         $outputtedFileURL
+        //     );
+        // }
 
         return $tweet;
     }

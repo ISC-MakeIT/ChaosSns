@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <Header>ホーム</Header>
-      <Form placeholder="What's happening?" />
+      <Form placeholder="いまどうしてる?" />
       <TweetFeed />
     </div>
   );
