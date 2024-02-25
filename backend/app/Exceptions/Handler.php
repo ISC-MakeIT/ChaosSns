@@ -18,15 +18,12 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     */
-    public function register(): void
+    public function render($request, Throwable $e)
     {
-        $this->reportable(function (Throwable $e) {
-            if ($e instanceof HttpExceptionInterface) {
-                return response($e->getResponseJson(), $e->getStatusCode());
-            }
-        });
+        if ($e instanceof HttpExceptionInterface) {
+            return response($e->getResponseJson(), $e->getStatusCode());
+        }
+        logs()->error($e);
+        return parent::render($request, $e);
     }
 }

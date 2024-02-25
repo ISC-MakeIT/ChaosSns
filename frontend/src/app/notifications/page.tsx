@@ -1,12 +1,16 @@
+import getNotifications from "@/api/server/getNotifications";
 import Header from "@/components/organisms/Header";
 import NotificationItemList from "@/components/organisms/NotificationItemList";
+import Client from "./client";
 
-export default function Index() {
+export default async function Index() {
+  const notifications = await getNotifications();
+
   return (
     <div>
+      <Client />
       <Header>通知</Header>
-      {/* TODO: APIを叩く */}
-      <NotificationItemList notifications={[{id: '1', content: 'aaa'}]} />
+      <NotificationItemList notifications={notifications} />
     </div>
   );
 }

@@ -4,6 +4,9 @@ metadata:
   name: chaos-sns
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: chaos-sns
   template:
     metadata:
       labels:
@@ -14,20 +17,17 @@ spec:
         image: backend:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - port: 8080
+        - containerPort: 8080
           protocol: TCP
-          targetPort: 80
       - name: frontend-node
         image: frontend:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - port: 3000
+        - containerPort: 3000
           protocol: TCP
-          targetPort: 3000
       - name: database-node
         image: database:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - port: 3306
+        - containerPort: 3306
           protocol: TCP
-          targetPort: 3306

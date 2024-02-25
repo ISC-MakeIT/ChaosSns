@@ -1,9 +1,27 @@
+"use client";
+
 import { FaFeather } from "react-icons/fa";
 import { SidebarTweetText } from "../atoms/SidebarTweetText";
+import { useCallback } from "react";
+import useLoginModal from "@/hooks/useLoginModal";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import usePostTweetModal from "@/hooks/usePostTweetModal";
 
 export const SidebarTweetButton = () => {
+  const { data: currentUser } = useCurrentUser();
+  const loginModal = useLoginModal();
+  const postTweetModal = usePostTweetModal();
+
+  const onClick = useCallback(() => {
+    if (currentUser) {
+      postTweetModal.onOpen();
+      return;
+    }
+    loginModal.onOpen();
+  }, [loginModal]);
+
   return (
-    <div>
+    <div onClick={onClick}>
       <div className="mt-6 lg:hidden rounded-full h-14 w-14 p-4 flex items-center justify-center bg-sky-500 hover:bg-opacity-80 transition cursor-pointer">
         <FaFeather size={24} color="white" />
       </div>

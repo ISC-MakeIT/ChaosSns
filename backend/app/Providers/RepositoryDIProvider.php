@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Encoder\EncoderRepository;
+use App\Repositories\Encoder\Interface\EncoderRepositoryInterface;
+use App\Repositories\Notification\Interface\NotificationRepositoryInterface;
+use App\Repositories\Notification\NotificationRepository;
 use App\Repositories\S3\Interface\S3RepositoryInterface;
 use App\Repositories\S3\S3Repository;
 use App\Repositories\User\Interface\UserRepositoryInterface;
@@ -27,6 +31,12 @@ class RepositoryDIProvider extends ServiceProvider
                     ],
                 ]));
             },
+            EncoderRepositoryInterface::class => function() {
+                return new EncoderRepository();
+            },
+            NotificationRepositoryInterface::class => function() {
+                return new NotificationRepository();
+            }
         ];
 
         foreach ($repositories as $interface => $repository) {
