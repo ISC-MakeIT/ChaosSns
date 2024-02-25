@@ -55,7 +55,7 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function EditUserIcon(Request $request, $id)
+    public function editUserIcon(Request $request, $id)
     {
         $user = $this->userRepo->findOneById($id);
         if(!$user){
