@@ -1,14 +1,15 @@
+'use client'
+
 import SidebarItem from "../molecules/SidebarItem";
 import { AiOutlineHome, AiOutlineBell, AiOutlineUser } from "react-icons/ai";
 import { SidebarTweetButton } from "../molecules/SidebarTweetButton";
 import { TwitterLogo } from "../atoms/TwitterLogo";
 import SidebarLogout from "../molecules/SidebarLogout";
-import useCurrentUser from "@/hooks/server/useCurrentUser";
 import getNotReadNotificationsCount from "@/api/server/getNotReadNotificationsCount";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
-export const Sidebar = async () => {
-  const response = await useCurrentUser();
-  const notificationCount = await getNotReadNotificationsCount();
+export const Sidebar = () => {
+  const { data: response, error } = useCurrentUser();
 
   const items = [
     {
@@ -18,11 +19,8 @@ export const Sidebar = async () => {
     },
   ];
 
-  if (response) {
+  if (response && !error) {
     let notificationsLabel = "通知";
-    if (notificationCount !== 0) {
-      notificationsLabel = `通知 ${notificationCount}件`;
-    }
 
     items.push(
       {

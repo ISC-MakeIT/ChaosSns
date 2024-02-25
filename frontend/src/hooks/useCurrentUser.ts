@@ -1,6 +1,12 @@
 import useSWR from "swr";
 import { API_ROUTES, apiAxios } from "@/consts/api";
 import { csrfCookie } from "@/api";
+import { User } from "@/types/user";
+
+type ResponseData = {
+  message: string;
+  user: User;
+};
 
 const fetcher = async (url: string) => {
   await csrfCookie();
@@ -8,7 +14,7 @@ const fetcher = async (url: string) => {
 };
 
 function useCurrentUser() {
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR<ResponseData>(
     API_ROUTES.GET_LOGGEDIN_USER.PATH,
     fetcher,
   );

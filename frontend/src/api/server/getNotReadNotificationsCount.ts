@@ -1,29 +1,29 @@
-import { headers } from "next/headers";
 import { API_ROUTES, apiAxios } from "@/consts/api";
+import useSWR from "swr";
+import { csrfCookie } from "..";
 
 type ResponseData = {
   message: string;
   count: number;
 };
 
-const getNotReadNotificationsCount = async (): Promise<number> => {
-  try {
-    const headerList = headers();
+const fetcher = async (url: string) => {
+  await csrfCookie();
+  return (await apiAxios.get(url)).data;
+};
 
-    const response = await apiAxios.get<ResponseData>(
-      API_ROUTES.GET_NOT_READ_NOTIFICATIONS_COUNT.PATH,
-      {
-        headers: {
-          Cookie: headerList.get("Cookie") ?? "",
-          referer: headerList.get("referer") ?? "",
-        },
-      },
-    );
-    return response.data.count;
-  } catch (e) {
-    console.error(e);
-  }
-  return 0;
+const getNotReadNotificationsCount = async () => {
+  const { data, error, isLoading, mutate } = useSWR(
+    API_ROUTES.GET_NOT_READ_NOTIFICATIONS_COUNT.PATH,
+    fetcher,
+  );
+
+  return {
+    data,
+    error,
+    isLoading,
+    mutate,
+  };
 };
 
 export default getNotReadNotificationsCount;

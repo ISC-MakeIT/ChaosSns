@@ -1,30 +1,30 @@
 import { API_ROUTES, apiAxios } from "@/consts/api";
 import { Notification } from "@/types/notification";
-import { headers } from "next/headers";
+import { csrfCookie } from "..";
+import useSWR from "swr";
 
 type ResponseData = {
   message: string;
   notifications: Notification[];
 };
 
-const getNotifications = async (): Promise<Notification[]> => {
-  try {
-    const headerList = headers();
+const fetcher = async (url: string) => {
+  await csrfCookie();
+  return (await apiAxios.get(url)).data;
+};
 
-    const response = await apiAxios.get<ResponseData>(
-      API_ROUTES.GET_NOTIFICATIONS.PATH,
-      {
-        headers: {
-          Cookie: headerList.get("Cookie") ?? "",
-          referer: headerList.get("referer") ?? "",
-        },
-      },
-    );
-    return response.data.notifications;
-  } catch (e) {
-    console.error(e);
-  }
-  return [];
+const getNotifications = () => {
+  const { data, error, isLoading, mutate } = useSWR<ResponseData>(
+    API_ROUTES.GET_NOTIFICATIONS.PATH,
+    fetcher,
+  );
+
+  return {
+    data,
+    error,
+    isLoading,
+    mutate,
+  };
 };
 
 export default getNotifications;
