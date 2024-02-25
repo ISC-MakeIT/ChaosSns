@@ -33,7 +33,7 @@ class TweetRepository implements TweetRepositoryInterface
      */
     public function getTweets(): Collection
     {
-        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->where("reply_to", null)->get();
 
         if (!$tweets) {
             throw new FailedGetTweetsException();

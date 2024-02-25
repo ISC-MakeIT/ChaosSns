@@ -13,17 +13,20 @@ import Avatar from "../atoms/Avatar";
 import Button from "../atoms/Button";
 import postTweet from "@/api/postTweet";
 import { AiOutlinePicture } from "react-icons/ai";
+import reply from "@/api/reply";
 
 interface ReplyFormProps {
   placeholder: string;
   isComment?: boolean;
   postId?: string;
+  reply_to: string;
 }
 
 const ReplyForm: React.FC<ReplyFormProps> = ({
   placeholder,
   isComment,
   postId,
+  reply_to,
 }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -41,7 +44,7 @@ const ReplyForm: React.FC<ReplyFormProps> = ({
     try {
       setIsLoading(true);
 
-      await postTweet(text, imageFile);
+      await reply(text, reply_to, imageFile);
       toast.success("投稿しました。");
       mutateTweets();
       mutateTweet();
@@ -54,7 +57,7 @@ const ReplyForm: React.FC<ReplyFormProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }, [text, mutateTweets, isComment, postId, mutateTweet]);
+  }, [text, mutateTweets, isComment, postId, mutateTweet, reply_to]);
 
   return (
     <div className="border-b-[1px] border-neutral-800 px-5 py-2">
