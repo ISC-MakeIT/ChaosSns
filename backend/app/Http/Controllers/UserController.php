@@ -125,6 +125,22 @@ class UserController extends Controller
         ]);
     }
 
+    public function editUserIcon(Request $request, $id)
+    {
+        $user = $this->userRepo->findOneById($id);
+        if(!$user){
+            return response()->json(['message' => 'user not found'], 404);
+        }
+
+
+        $iconURL = $this->s3Repo->upload($request->file('icon'));
+        $user->icon = $iconURL;
+        $user->save();
+
+        return response()->json(['message' => 'update icon successful']);
+
+    }
+
     /**
      * @param LoginRequest $request
      *
